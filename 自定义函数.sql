@@ -57,3 +57,39 @@ $$
         res = m+n;
     end;
 $$ language plpgsql;
+
+
+-- 2.自定义函数需要确定好returns的数据类型，有以下几种写法
+/*
+以下几种示例中均无需declare,也顺便省略了begin end层
+*/
+
+-- 2(1).在table中指定输出的数据类型是int与text,参数名res1与res2会做结果集的列名,不宜缺省
+
+create function 
+	dup(int) returns table(res1 int,res2 text)
+as
+$$
+    select $1,cast($1 as text)||' is text';
+$$ language sql;
+
+-- 2(2).create type type_name as语句指定结果集数据类型,然后让returns根据type_name调用指定的数据类型
+
+create type mytype as (res1 int,res2 text);
+
+create function 
+	dup1(int) returns mytype
+as
+$$
+    select $1,cast($1 as text)||' is text';
+$$ language sql;
+
+-- 2(3).在函数定义中不仅指定数据类型,顺便指定输入输出类型,可以省去returns,大善
+
+create function 
+	dup2(in int,out res1 int,out res2 text) 
+as
+$$
+    select $1,cast($1 as text)||' is text';
+$$ language sql;
+
