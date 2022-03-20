@@ -25,3 +25,22 @@
  
  -- 重启postgresql
  brew services restart postgresql
+
+/*
+终端进入数据库编辑模式：psql
+查看有哪些数据库：\l
+切换数据库：\c dbname
+退出psql控制台编辑模式：\q
+指定某用户连接某数据库：psql -U postgres -d postgres
+统计用时：\timing
+\d test --查看表的结构，类似df.info()
+*/
+
+CREATE USER postgres WITH PASSWORD 'postgres'; -- 创建用户、密码（注意引号）
+
+CREATE DATABASE dbname OWNER username; -- 为某个user创建dbname
+
+DROP DATABASE dbname; -- 删除数据库
+
+ALTER ROLE username CREATEDB; --允许某用户创建数据库
+
