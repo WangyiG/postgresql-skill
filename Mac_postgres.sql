@@ -44,3 +44,8 @@ DROP DATABASE dbname; -- 删除数据库
 
 ALTER ROLE username CREATEDB; --允许某用户创建数据库
 
+GRANT ALL PRIVILEGES ON DATABASE postgres to postgres; --授权postgres用户从任何主机连接postgres数据库
+
+
+
+
