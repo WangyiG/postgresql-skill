@@ -6,9 +6,13 @@
  
  -- 初始化数据库,mt为实际的电脑用户名
  initdb -D /Users/mt/other/postgresql -U mt --lc-collate=C --lc-ctype=en_US.UTF-8 --lc-messages=en_US.UTF-8 -E UTF8 
+ initdb -D /Users/mt/other/postgresql -U mt --lc-collate=zh_CN.UTF-8 --lc-ctype=zh_CN.UTF-8 --lc-messages=zh_CN.UTF-8 -E UTF8 
  
  -- 如果是重新安装，初始化提示，之前文件夹已存在，需要重建路径或先删除原路径
  rm -rf /Users/mt/other/postgresql
+ 
+ -- 启动数据库
+ pg_ctl -D /Users/mt/other/postgresql  start
  
  -- 需要先执行createdb，然后才能psql进入控制台
  
