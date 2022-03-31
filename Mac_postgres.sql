@@ -34,6 +34,8 @@
  max_worker_processes = m
  max_parallel_workers = n
  force_parallel_mode = on
+ 
+ https://github.com/digoal/blog/blob/61bbe29d6f06bb9b98b7a694f2180ffd33987835/201812/20181218_01.md
 
 /*
 终端进入数据库编辑模式：psql
