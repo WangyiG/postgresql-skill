@@ -29,6 +29,11 @@
  
  -- 重启postgresql
  brew services restart postgresql
+ 
+ -- 并行设置,show查看最大可设置值m,set设置n，n小于等于m，set设置强制并行为on：
+ max_worker_processes = m
+ max_parallel_workers = n
+ force_parallel_mode = on
 
 /*
 终端进入数据库编辑模式：psql
