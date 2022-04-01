@@ -71,4 +71,16 @@ GRANT ALL PRIVILEGES ON DATABASE postgres to postgres; --授权postgres用户从
 
 
 
+-- topn插件安装
+git clone https://github.com/citusdata/postgresql-topn  
+cd postgresql-topn  
+USE_PGXS=1 make  
+USE_PGXS=1 make install
+
+进入psql，在psql中:create extension topn;
+
+精度建议设置为10000
+load 'topn';
+show topn.number_of_counters ;
+set topn.number_of_counters =10000;
 
