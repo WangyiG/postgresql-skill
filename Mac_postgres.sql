@@ -31,9 +31,23 @@
  brew services restart postgresql
  
  -- 并行设置,show查看最大可设置值m,set设置n，n小于等于m，set设置强制并行为on：
- max_worker_processes = m
- max_parallel_workers = n
- force_parallel_mode = on
+SHOW max_worker_processes
+
+SHOW max_parallel_workers_per_gather
+SET max_parallel_workers_per_gather = 8
+
+SHOW parallel_setup_cost
+SET parallel_setup_cost = 0
+
+SHOW parallel_tuple_cost
+SET parallel_tuple_cost = 0
+
+SHOW force_parallel_mode
+SET force_parallel_mode = on
+
+alter table tbao set (parallel_workers=8);
+
+EXPLAIN(ANALYZE,TIMING) SELECT COUNT(*) FROM tbao
  
  https://github.com/digoal/blog/blob/61bbe29d6f06bb9b98b7a694f2180ffd33987835/201812/20181218_01.md
 
