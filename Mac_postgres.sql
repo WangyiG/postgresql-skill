@@ -30,6 +30,11 @@
  -- 重启postgresql
  brew services restart postgresql
  
+ -- mac重启后数据还原,操作步骤
+ 1.brew services restart postgresql
+ 2.createdb,psql,\l
+ 3.create mydb,执行还原
+ 
  -- 并行设置,show查看最大可设置值m,set设置n，n小于等于m，set设置强制并行为on：
 SHOW max_worker_processes
 
