@@ -6,7 +6,7 @@ select concat(11,Null,22);
 select concat_ws('-',11,Null,22);
 
 3.||连接符,与concat类似,与concat的区别是连接的字符串中存在Null时,返回Null
-select 11||Null||22;
+select 11||Null||22;--Null
 
 -- 字符串长度,大小写与首字母大写
 select length('apple');--5
