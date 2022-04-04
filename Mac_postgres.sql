@@ -35,6 +35,12 @@
  2.createdb,psql,\l
  3.create mydb,执行还原
  
+ -- postgresql.conf
+ 1.cd /Users/mt/other/postgresql
+ 2.ll,查看目录下文件列表
+ 3.vi postgresql.conf
+ 4.i进入编辑模式，按esc然后:wq退出
+ 
  -- 并行设置,show查看最大可设置值m,set设置n，n小于等于m，set设置强制并行为on：
 SHOW max_worker_processes
 
@@ -88,4 +94,10 @@ USE_PGXS=1 make install
 load 'topn';
 show topn.number_of_counters ;
 set topn.number_of_counters =10000;
+
+-- linux操作
+1.cd,切换目录
+2.cd ～,返回home目录
+3.cd ..,返回上一级目录
+4.ll,查看目录下文件列表
 
