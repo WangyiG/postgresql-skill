@@ -57,8 +57,8 @@ select regexp_match('Mday,mday,1day,2day','m\w+');--'mday'
 select regexp_match('Mday,mday,1day,2day','m\w+','i');--'Mday'
 
 3.regexp_matches(str,pattern[,flags]),flags指定global模式时匹配所有符合的字串,返回一个table形式的结果集,不指定g时,也只是匹配第一个
-select regexp_matches('MDay,mday,1day,2Day','\wday','g');--table形式的'1day' '3day'
-select regexp_matches('MDay,mday,1day,2Day','\wday','ig');--table形式的'1day' '2Day' '3day'
+select regexp_matches('MDay,mday,1day,2Day','\wday','g');--table形式的'mday' '1day'
+select regexp_matches('MDay,mday,1day,2Day','\wday','ig');--table形式的'Mday' 'mday' '1day' '2Day'
 
 -- 返回字串的位置
 1.position(substr in str)
