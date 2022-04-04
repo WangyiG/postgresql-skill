@@ -14,7 +14,18 @@ select upper('apple');--'APPLE'
 select lower('APPLE');--'apple'
 select initcap('apple');--'Apple'
 
--- 字符串提取
+-- 格式化字符串format(%[position][flags][width]type)
+/*
+%[-][w]s,参数接受顺序与参数顺序一致时,w指定宽度,默认右对齐,'-'指定左对齐,注意:虽然[-]在[w]�前
+%n$[-][w]s,n$来指定接受第n个参数,即第一个占位符可以接受第n个参数
+*/
+select format('%-3s,%3s','a','b');--'a  ,  b'
+select format('hello,%s','world');--'hello,world'
+select format('%2$3s%1$-3sc','a','b');--'  ba  c'
+
+-- 
+
+-- 字符串位置提取
 1.substring(str[from m][for n])与substr(str,from m[,for n]),从第m个开始,总计返回n个字符,其中substr的参数位置决定无法省略from
 select substring('Apple' for 3);--'App'
 select substr('Apple',2,3);--'ppl'
@@ -43,17 +54,17 @@ select position('le' in 'apple');4
 2.strpos(str,substr),注意参数位置与position的区别,子串在后
 select strpos('apple','le');--4
 
--- 字符串替换
-1.replace(str,from,to)
+-- 字符串替换:匹配与位置替换
+1.replace(str,from,to),简单替换
 select replace('apple','le','');--'app'
 
-2.regexp_replace(str,pattern,replacement[, flags]),正则替换
+2.regexp_replace(str,pattern,replacement[, flags]),正则匹配替换
 select regexp_replace('apple plan','p{2}','n');--'anle plan'
 
-3.translate(str,from,to),批量替换,当from长度大于to时,匹配的部分执行替换,多出的部分执行删除
+3.translate(str,from,to),批量匹配替换,当from长度大于to时,匹配的部分执行替换,多出的部分执行删除
 select translate('apple plan','ple','12');--'a112 12an',e没有匹配到,执行删除
 
-4.overlay(str placing substr from [for]),覆盖替换,不必知道被替换的具体是什么,只需知道其位置即可
+4.overlay(str placing substr from [for]),覆盖位置替换,不必知道被替换的具体是什么,只需知道其位置即可
 select overlay('apple plan' placing 'bb' from 2 for 3);--'abbe plan'
 
 -- 截断与填充
@@ -70,7 +81,13 @@ select rtrim('xyappleyz','xyz');--'xyapple'
 
 2.lpad(str,length[,fill])与rpad(str,length[,fillvalue]),默认以空格填充,当length小于字符长度时会执行截断
 select lpad('apple',7,'123');--'12apple',用不上3
-select rpad('apple',4,'0');--'appl'而非'pple',注意当长度不够时,都是保留�得okd当ddf
+select rpad('apple',4,'0');--'appl'而非'pple',注意当长度不够时,执行截取,都是保留前n个,截取后面的
+
+3.repeat(str,n),重复字符串n次
+select repeat('apple ',3);--'apple apple apple'
+
+
+
 
 
 
