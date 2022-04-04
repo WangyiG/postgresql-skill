@@ -14,6 +14,19 @@ select upper('apple');--'APPLE'
 select lower('APPLE');--'apple'
 select initcap('apple');--'Apple'
 
+-- 字符串拆分
+1.split_part(str,sep,n),按sep分割后取第n个
+select split_part('apple,banana,orange',',',3);--'orange'
+
+2.string_to_array(str,sep[,null substr]),按sep拆分成array,指定要返回空值的子串,总所周知,unnest(array)后count(*)是不统计null值的
+select string_to_array('apple,banana,orange',',','banana');--{apple,Null,orange}
+
+3.regexp_split_to_array(str,pattern[,flags]),正则拆分,flags用于指定正则标记,如i指定忽略大小写
+select regexp_split_to_array('applem1bananaM2orange','m\d','i');--{apple,banana,orange}
+
+4.regexp_split_to_table(str,pattern[,flags]),正则拆分,返回表格形式
+select regexp_split_to_table('apple  banana,orange','[\s,]+');table形式的apple banana orange,旧版本postgres可能需要使用E'[\\s,]+'转义
+
 -- 格式化字符串format(%[position][flags][width]type)
 /*
 %[-][w]s,参数接受顺序与参数顺序一致时,w指定宽度,默认右对齐,'-'指定左对齐,注意:虽然[-]在[w]前,但是必须有[w]才能使用[-],这也符合常识
@@ -43,7 +56,7 @@ select substring('apple,mday,1day,2day' from '\dday');--'1day'
 select regexp_match('Mday,mday,1day,2day','m\w+');--'mday'
 select regexp_match('Mday,mday,1day,2day','m\w+','i');--'Mday'
 
-3.regexp_matches(str,pattern[,flags]),flags指定g时匹配所有符合的字串,返回形式是一个table形式,不指定g模式时,也是只匹配第一个
+3.regexp_matches(str,pattern[,flags]),flags指定global模式时匹配所有符合的字串,返回一个table形式的结果集,不指定g时,也只是匹配第一个
 select regexp_matches('MDay,mday,1day,2Day','\wday','g');--table形式的'1day' '3day'
 select regexp_matches('MDay,mday,1day,2Day','\wday','ig');--table形式的'1day' '2Day' '3day'
 
@@ -85,24 +98,5 @@ select rpad('apple',4,'0');--'appl'而非'pple',注意当长度不够时,执行�
 
 3.repeat(str,n),重复字符串n次
 select repeat('apple ',3);--'apple apple apple'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
