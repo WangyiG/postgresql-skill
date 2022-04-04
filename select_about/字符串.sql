@@ -32,7 +32,7 @@ select substring('apple,mday,1day,2day' from '\dday');--'1day'
 select regexp_match('Mday,mday,1day,2day','m\w+');--'mday'
 select regexp_match('Mday,mday,1day,2day','m\w+','i');--'Mday'
 
-3.regexp_matches(str,pattern[,flags]),flags指定g时匹配所有符合的字串,返回形式是一个table形式
+3.regexp_matches(str,pattern[,flags]),flags指定g时匹配所有符合的字串,返回形式是一个table形式,不指定g模式时,也是只匹配第一个
 select regexp_matches('MDay,mday,1day,2Day','\wday','g');--table形式的'1day' '3day'
 select regexp_matches('MDay,mday,1day,2Day','\wday','ig');--table形式的'1day' '2Day' '3day'
 
@@ -42,5 +42,50 @@ select position('le' in 'apple');4
 
 2.strpos(str,substr),注意参数位置与position的区别,子串在后
 select strpos('apple','le');--4
+
+-- 字符串替换
+1.replace(str,from,to)
+select replace('apple','le','');--'app'
+
+2.regexp_replace(str,pattern,replacement[, flags]),正则替换
+select regexp_replace('apple plan','p{2}','n');--'anle plan'
+
+3.translate(str,from,to),批量替换,当from长度大于to时,匹配的部分执行替换,多出的部分执行删除
+select translate('apple plan','ple','12');--'a112 12an',e没有匹配到,执行删除
+
+4.overlay(str placing substr from [for]),覆盖替换,不必知道被替换的具体是什么,只需知道其位置即可
+select overlay('apple plan' placing 'bb' from 2 for 3);--'abbe plan'
+
+-- 截断与填充
+1.trim,移除首尾指定字符,默认method为both,默认characters为空格
+/*
+trim([leading|trailing|both][characters]from str)
+trim([leading|trailing|both][from] str [,characters]) -- from可有可无
+btrim(str[,characters]),ltrim(str[,characters]),rtrim(str[,characters]) -- 对应method分别为both,leading,trailing
+*/
+select trim(' apple '),length(trim(' apple '));--'apple' 5
+select trim(leading 'xyz' from 'xyappleyz');--'appleyz'
+select trim(trailing 'xyappleyz','xyz');--'xyapple'
+select rtrim('xyappleyz','xyz');--'xyapple'
+
+2.lpad(str,length[,fill])与rpad(str,length[,fillvalue]),默认以空格填充,当length小于字符长度时会执行截断
+select lpad('apple',7,'123');--'12apple',用不上3
+select rpad('apple',4,'0');--'appl'而非'pple',注意当长度不够时,都是保留�得okd当ddf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
