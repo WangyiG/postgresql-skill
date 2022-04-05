@@ -28,18 +28,37 @@ createdb
 -- 关于模板数据库template0与template1
 /*
 首先要牢记,后续所有create database db_name [template][template_name]建库都是默认基于模板库template1创建的,而template1的设置基于初始化initdb
-template0与template1共同点是都不能被删除
+
+template0与template1共同点是都不能被删除。
+
 template0与template1的区别:
 1.template1可以被连接并能创建对象(表,视图,函数等),而且当template1中创建对象后,后续新建的基于template1的database也会含有这些对象数据,而template0不能被连接,也就不能在
-其中创建对象了,template1的优点是有些复用数据或插件在template1中创建后,新建的基于template1的database不必再去重复创建
-2.基于template0创建的database可以重新指定encoding,Collate,Ctype,当有些插件或场景需要重新指定这些设置来建库时,可以基于template1来创建,而不必去重新initdb初始化,相
-反template1不支持重新指定这些设置
+其中创建对象了,template1的优点是有些复用数据或插件在template1中创建后,新建的基于template1的database不必再去重复创建。
+
+2.基于template0创建的database可以重新指定新的encoding,Collate,Ctype,当有些插件或场景需要重新指定这些设置来建库时,可以基于template1来创建,而不必去重新initdb初始化,相
+反template1不支持重新指定这些编码。
 */
 
 -- 除系统默认模板库外,新建模板库的2种方法
+/*查看database属性,其中2个属性特别重要:datistemplate指定是否为模板库,datallowconn指定库是否可以被连接,template0不可连接,就是因为其datallowconn属性为f*/
+select * from pg_database;
+
 1.在创建时利用指定 is_template true
 create database my_template is_template true;
 
-2.将系统表pg_database中将需要修改为模板库的database的datistemplate�da
+2.将系统表pg_database中将需要修改为模板库的database的datistemplate的datistemplate属性修改为t,以下2种写法都行
+
+alter database my_template is_template true;
+
+update pg_database set datistemplate = 't' where datname = 'my_template';
+
+-- 删除自定义的模板库,默认的模板库当然也可以删除,但正常人都不会去删吧？
+
+1.先取消模板资格
+alter database my_template is_template false;
+update pg_database set datistemplate = 'f' where datname = 'my_template';
+
+2.然后删除
+drop database my_template;
 
 
