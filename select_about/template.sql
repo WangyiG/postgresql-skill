@@ -27,7 +27,9 @@ createdb
 
 -- 关于模版数据库template0与template1
 /*
-1.首先要牢记,后续所有create database db_name [template][template_name]建库都是默认基于模版库template1创建的,而template1的设置基于初始化initdb
-2.template0与template1的区别:
-template0不能被连接,template1可以被连接并创建对象(表,视图,函数等),并�且
+首先要牢记,后续所有create database db_name [template][template_name]建库都是默认基于模版库template1创建的,而template1的设置基于初始化initdb
+template0与template1的区别:
+1.template1可以被连接并能创建对象(表,视图,函数等),而且当template1中创建对象后,后续新建的基于template1的database也会含有这些对象数据,而template0不能被连接,也就不能在
+其中创建对象了,template1的优点是有些复用数据在template1中创建后,新建的database不�不
+template1比template0的灵活之处在于,
 */
