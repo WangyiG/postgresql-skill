@@ -20,16 +20,26 @@ initdb -D /Users/mt/other/postgresql -U mt --lc-collate=C --lc-ctype=en_US.UTF-8
 -- 启动数据库
 pg_ctl -D /Users/mt/other/postgresql  start
 
--- 生成默认数据库postgres与模版数据库template0,template1
+-- 生成默认数据库postgres与模板数据库template0,template1
 createdb
 
 -- 执行完以上所有操作后才可以在终端使用psql命令
 
--- 关于模版数据库template0与template1
+-- 关于模板数据库template0与template1
 /*
-首先要牢记,后续所有create database db_name [template][template_name]建库都是默认基于模版库template1创建的,而template1的设置基于初始化initdb
+首先要牢记,后续所有create database db_name [template][template_name]建库都是默认基于模板库template1创建的,而template1的设置基于初始化initdb
+template0与template1共同点是都不能被删除
 template0与template1的区别:
 1.template1可以被连接并能创建对象(表,视图,函数等),而且当template1中创建对象后,后续新建的基于template1的database也会含有这些对象数据,而template0不能被连接,也就不能在
-其中创建对象了,template1的优点是有些复用数据在template1中创建后,新建的database不�不
-template1比template0的灵活之处在于,
+其中创建对象了,template1的优点是有些复用数据或插件在template1中创建后,新建的基于template1的database不必再去重复创建
+2.基于template0创建的database可以重新指定encoding,Collate,Ctype,当有些插件或场景需要重新指定这些设置来建库时,可以基于template1来创建,而不必去重新initdb初始化,相
+反template1不支持重新指定这些设置
 */
+
+-- 除系统默认模板库外,新建模板库的2种方法
+1.在创建时利用指定 is_template true
+create database my_template is_template true;
+
+2.将系统表pg_database中将需要修改为模板库的database的datistemplate�da
+
+
