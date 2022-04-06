@@ -33,3 +33,6 @@ FROM tbao GROUP BY behavior_type;
 
 -- 返回结果
 SELECT behavior_type,(topn(topn_union_agg(agg),5)).* FROM test GROUP BY behavior_type ORDER BY behavior_type;
+
+
+
