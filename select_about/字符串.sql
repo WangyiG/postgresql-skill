@@ -52,13 +52,17 @@ select left('Apple',-3);--'Ap'
 select substring('apple,mday,1day,2day' from '\wday');--'mday'
 select substring('apple,mday,1day,2day' from '\dday');--'1day'
 
+
 2.regexp_match(str,pattern[,flags]),匹配提取posix正则表达式的子串(匹配第一个符合的就结束了),flags用于指定正则的标记修饰符,如i表示忽略大小写
-select regexp_match('Mday,mday,1day,2day','m\w+');--'mday'
-select regexp_match('Mday,mday,1day,2day','m\w+','i');--'Mday'
+select regexp_match('Mday,mday,1day,2day','m\w+');--{mday}
+select regexp_match('Mday,mday,1day,2day','m\w+','i');--{Mday}
 
 3.regexp_matches(str,pattern[,flags]),flags指定global模式时匹配所有符合的字串,返回一个table形式的结果集,不指定g时,也只是匹配第一个
-select regexp_matches('MDay,mday,1day,2Day','\wday','g');--table形式的'mday' '1day'
-select regexp_matches('MDay,mday,1day,2Day','\wday','ig');--table形式的'Mday' 'mday' '1day' '2Day'
+select regexp_matches('MDay,mday,1day,2Day','\wday','g');--table形式的{mday} {1day}
+select regexp_matches('MDay,mday,1day,2Day','\wday','ig');--table形式的{Mday} {mday} {1day} {2Day}
+
+4.注意regexp_match[es]返回的都是数组,因为不知道返回几个组,如下\D+,\d+
+select regexp_matches(info,'(\D+)(\d+)','g') from (values('a2bc3'),('d45e6')) as t(info)--table形式的{a,2} {bc,3} {d,45} {e,6}
 
 -- 返回字串的位置
 1.position(substr in str)
