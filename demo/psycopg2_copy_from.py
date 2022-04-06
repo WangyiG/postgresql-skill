@@ -31,7 +31,7 @@
  output1 = output.getvalue()
 
  # 把数据写入数据库
- # 需要先建表:create table tbao(user_id int,item_id int,category_id int,behavior_type varchar,timestamp int,datetimes timestamp,dates date,times time,hours int)
+ # 需要先建表:create table tbao(user_id int,item_id int,category_id int,behavior_type varchar,timestamps int,datetimes timestamp,dates date,times time,hours int)
  conn = psycopg2.connect(host='localhost', user='mt', password='postgres', database='mydb')
  cur = conn.cursor()
  cur.copy_from(StringIO(output1),'public.tbao',null='',columns=col)
