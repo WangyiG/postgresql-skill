@@ -27,6 +27,7 @@ select regexp_split_to_table('I-loveing-you!','-|ing-')
 
 select unnest(string_to_array('I-loveing-you!','-'))
 
+-- with ordinality 必须接在from子句的函数后面使用
 select ordinality id,unnest info from unnest(string_to_array('I-loveing-you!','-')) with ordinality  -- 通过unnest(array) with  ordinality增加编号
 
 --6.any,all与array的搭配使用
