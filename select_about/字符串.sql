@@ -64,6 +64,10 @@ select regexp_matches('MDay,mday,1day,2Day','\wday','ig');--table形式的{Mday}
 4.注意regexp_match[es]返回的都是数组,因为不知道返回几个组,如下\D+,\d+
 select regexp_matches(info,'(\D+)(\d+)','g') from (values('a2bc3'),('d45e6')) as t(info)--table形式的{a,2} {bc,3} {d,45} {e,6}
 
+5.这里拓展下正则匹配后array的展开
+select (select info)[1] m,(select info)[2] n from (select regexp_matches(info,'(\D+)(\d+)','g') info from (values('a2bc3'),('d45e6')) as t(info))x;
+select unnest(regexp_matches(info,'(\D+)(\d+)','g')) m from (values('a2bc3'),('d45e6')) as t(info)
+
 -- 返回字串的位置
 1.position(substr in str)
 select position('le' in 'apple');4
