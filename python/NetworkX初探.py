@@ -13,6 +13,9 @@ G = nx.from_pandas_edgelist(df,source='Step',target='Step_Previous')
 pos = nx.kamada_kawai_layout(G)
 
 # 做图
+nx.draw(G,pos,with_labels=True,node_color=range(42),node_size=400,edge_color=range(df.shape[0]),width=1,alpha=0.6,
+        arrowstyle="->",arrowsize=10,font_size=14, font_family="sans-serif")
+
 nx.draw(G,pos,with_labels=True)
 plt.show()
 
