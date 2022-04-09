@@ -12,7 +12,7 @@ df = pd.DataFrame(m2,columns=['a','b'])
 
 G = nx.from_pandas_edgelist(df,source='a',target='b')
 
-# 设置布局
+# 设置图的布局,布局有很多,可以去文档翻翻
 pos = nx.kamada_kawai_layout(G)
 
 # 图像细节设置
@@ -22,7 +22,7 @@ nx.draw(G,pos,with_labels=True,node_color=range(25),node_size=400,edge_color=ran
 #nx.draw(G,pos,with_labels=True)
 plt.show()
 
-# 所需路径
+# 所需起点至终点路径,路程设置为8,是为了筛出向右向下走法,对于5*5矩阵起点到终点路程一定是8
 list(nx.all_simple_paths(G,0,24,cutoff=8))[:10],len(list(nx.all_simple_paths(G,0,24,cutoff=8)))
 
 # 动态规划求最小路径和
