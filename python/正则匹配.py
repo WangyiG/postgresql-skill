@@ -5,8 +5,8 @@ df = pd.DataFrame({'id':[1,2],'value':['skls/32c,Msg/sms1,sms2,sms3,SKG/CD,FS','
 '''
 1.?P<group_name>,命名组
 2.+，*接？表示非贪婪模式，尽可能少的匹配
-3.(?<=pattern)前向界定
-4.(?=pattern)后向界定
+3.(?<=pattern)前向界定,前向否定(?<!pattern)，注意前向中不可使用\d等正则表达式
+4.(?=pattern)后向界定,后向否定(?！pattern)
 5.^首，$尾
 '''
 df.set_index('id').value.str.extractall('(?P<阿强>\w+?(?=/))/(?P<阿珍>.+?(?=,\w+/|$))')
