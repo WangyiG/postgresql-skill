@@ -40,6 +40,7 @@ def min_sum(arr):
             else:
                 dp[i][j] = min(dp[i-1][j],dp[i][j-1])+arr[i][j]
     return dp
+
 min_sum(arr)
 
 
