@@ -28,18 +28,18 @@ list(nx.all_simple_paths(G,0,24,cutoff=8))[:10],len(list(nx.all_simple_paths(G,0
 # 动态规划求最小路径和
 def min_sum(arr):
     m,n= arr.shape[0],arr.shape[1]
-    opt = np.zeros((m,n))
+    dp = np.zeros((m,n))
     for i in range(m):
         for j in range(n):
             if i==j==0:
-                opt[i][j] = 0
+                dp[i][j] = 0
             elif i==0:
-                opt[i][j] = opt[i][j-1]+arr[i][j]
+                dp[i][j] = dp[i][j-1]+arr[i][j]
             elif j==0:
-                opt[i][j] = opt[i-1][j]+arr[i][j]
+                dp[i][j] = dp[i-1][j]+arr[i][j]
             else:
-                opt[i][j] = min(opt[i-1][j],opt[i][j-1])+arr[i][j]
-    return opt
+                dp[i][j] = min(dp[i-1][j],dp[i][j-1])+arr[i][j]
+    return dp
 min_sum(arr)
 
 
