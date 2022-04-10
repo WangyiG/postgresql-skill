@@ -19,6 +19,14 @@ nx.draw(G,pos,with_labels=True,node_color=range(42),node_size=400,edge_color=ran
 nx.draw(G,pos,with_labels=True)
 plt.show()
 
+# 标识边的长度示例
+df = pd.DataFrame({'begin':list('AABC'),'end':list("BCAB"),'length':[1,3,5,7]})
+G = nx.from_pandas_edgelist(df,source='begin',target='end',edge_attr='length')
+pos=nx.spring_layout(G);
+nx.draw(G, with_labels=True,edge_color='black')
+nx.draw_networkx_edge_labels(G,pos,font_color='r',edge_labels= nx.get_edge_attributes(G, 'length'),rotate=True)
+plt.show()
+
 ‘’‘
 1.https://blog.csdn.net/qq_40206371/article/details/118061345
 2.https://blog.csdn.net/littlely_ll/article/details/81749960
