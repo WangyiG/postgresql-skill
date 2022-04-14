@@ -17,11 +17,6 @@ Path1._asdict()
 # return:{'begin': '常州', 'end': '合肥', 'length': '300公里'}
 
 
-
-
-
-
-
 Card = namedtuple('card',['rank','suit'])
 
 class FrenchDeck:
@@ -46,6 +41,31 @@ deck = FrenchDeck()
 deck[0],deck[0].rank,deck[0]._asdict()
 
 # return:card(rank='2', suit='spades'), '2', {'rank': '2', 'suit': 'spades'}
+
+
+from collections.abc import Iterable,Iterator
+# 可迭代iterable与迭代器iterator,迭代器一定是可迭代的,但可迭代的比如列表,并不是迭代器,yield或通过生成器表达式构建的生成器一定是迭代器,但迭代器并不一定都是生成器,iterable>iterator>generator
+print(isinstance([0],Iterable),isinstance([0],Iterator))
+print(isinstance(iter([0]),Iterable),isinstance(iter([0]),Iterator))
+
+# 接着回到FrenchDeck类中来，如上FrenchDeck类中并没有实现__iter__方法,那么实例deck是可迭代的吗？
+print(isinstance(deck,Iterable))
+# 返回了False,那貌似是不可迭代的,再试试for循环遍历
+for i in deck:
+    print(i)
+    break
+# for循环可以遍历,那么这又是怎么一回事呢,原来只有通过迭代器协议__iter__方法实现的迭代才能被collections.abc.Iterable检测
+# __getitem__方法实现的迭代虽不能被检测,但可被遍历,并且__getitem__实现的迭代一定是可索引的,而迭代器协议实现的迭代不必是可索引的,比如字典与集合,所以{0,1}[0]会报错
+# __iter__是遍历可迭代对象的首选方法。如果未定义，解释器将尝试使用__getitem__来模拟其行为
+
+
+
+
+
+
+
+
+
 
 
 
