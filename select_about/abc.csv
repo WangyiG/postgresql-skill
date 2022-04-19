@@ -1,0 +1,14 @@
+id,date,from,to
+A,01/01/2020,alice,bob
+A,01/01/2020,alice,carl
+A,01/02/2020,jim,peter
+A,01/02/2020,jim,jen
+B,01/02/2020,mary,john
+B,01/03/2020,john,max
+B,01/03/2020,mike,jane
+B,01/03/2020,jane,jim
+C,01/02/2020,xavier,jim
+C,01/02/2020,jim,alice
+C,01/03/2020,alice,bob
+C,01/03/2020,manny,lily
+C,01/04/2020,rosa,bob
