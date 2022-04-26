@@ -7,6 +7,7 @@ d,f = pd.read_excel('/Users/mt/Desktop/求每个节点的最短路径.xlsx',None
 df = pd.concat([d,f])
 
 # 根据df生成有向图,step列为有向边的起点，step_previous为有向边的终点,edge_attr='weights'权重这里省略
+# create_using=nx.DiGraph()参数指定有向
 G = nx.from_pandas_edgelist(df,source='Step',target='Step_Previous')
 
 # 设置布局,调整图像不要纠缠太混乱
