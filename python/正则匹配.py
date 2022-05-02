@@ -7,6 +7,7 @@ import pandas as pd
 4.(?=pattern)后向界定,后向否定(?！pattern)
 5.^首，$尾
 6.无捕获组(?:pattern),无捕获组的使用偏向把确定能匹配的放前面,不确定的放无捕获组内,如题3对比
+7.有编号组n的使用,首先匹配应该是组的形式,然后才能r'\n'调用,这里r不能省
 '''
 
 # /前面的为1组开头,后面直至另一组开头为1组
@@ -23,3 +24,12 @@ s.str.extractall('([\d\.]{10})[\s-]*([\d\.]+)*(?=,|$)')
 s = pd.Series(['add tss czz qty', 'fss esc mdk', 'ssl .str.extractall('(\w+\s\w+|\w+$)').droplevel(1)mny tc fkl dek', 'mq'])
 s.str.extractall('(\w+(?:\s\w+)?)').droplevel(1)
 s.str.extractall('(\w+\s\w+|\w+$)').droplevel(1)
+
+
+# 注意这里replace使用了组的形式,然后才能被r'\1'调用
+pd.Series(['ab-cd','ab-ab']).str.extract(r'(\w+)-\1')
+S = pd.Series(['ab,cd','efg-h'],name='A')
+S.str.replace('(\w+)',S.name+r'\1',regex=True)
+
+
+
