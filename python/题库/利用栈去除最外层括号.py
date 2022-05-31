@@ -16,3 +16,23 @@ pd.DataFrame(['(())','(()()(()))','(()())(())','(()())(())(()(()))()'],columns=[
 
 
 
+def g(x):
+    a,res = [],''
+    for i in x:
+        if i==')':
+            a.pop()
+        #  非空栈判断的顺序卡在i判断之间,导致不方便简单的if else   
+        if a:
+            res+=i
+        if i=='(':
+            a.append(i)
+
+
+    return res
+            
+
+g('(((())))(()())')
+
+
+
+
