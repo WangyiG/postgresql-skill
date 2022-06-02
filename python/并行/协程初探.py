@@ -127,3 +127,26 @@ def f(x):
 sum(Parallel(n_jobs=6)(delayed(f)(i) for i in range(6)))
 
 
+
+
+from aiomultiprocess import Pool
+import asyncio
+from testfunc import test
+
+res_ = []
+async def main():
+    arr = list(range(5))
+    async with Pool() as pool:
+        async for res in pool.map(test,arr):
+            res_.append(res)
+            print(res)
+
+await main()
+
+res_
+
+
+
+
+
+
