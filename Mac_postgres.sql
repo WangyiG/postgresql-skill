@@ -101,3 +101,11 @@ set topn.number_of_counters =10000;
 3.cd ..,返回上一级目录
 4.ll,查看目录下文件列表
 
+
+-- git
+报错：Command failed with exit 128: git
+解决办法：brew -v  根据提示：
+git config --global --add safe.directory 你的homebrew-core路径
+git config --global --add safe.directory 你的homebrew-cask路径
+
+
