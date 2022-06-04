@@ -37,4 +37,32 @@ pd.concat(res_)
 
 
 
+# 实现异步上下文,在__aenter__中返回的结果才是上下文结果
+class File():
+    def __init__(self,filename,mode):
+        self.filename = filename
+        self.mode = mode
+
+    async def to_do(self):
+        self.f = open(self.filename,self.mode,encoding='utf-8')
+        res = []
+        for f in self.f:
+            res.append(json.loads(f.strip()))
+        return pd.DataFrame(res).query('name=="张三"')
+
+    async def __aenter__(self):
+        self.v = await self.to_do()
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        self.f.close()
+
+async def func(x):
+    async with File(x,'r') as fs:
+       res = fs.v
+    return res
+
+# await func(x)
+
+
 
