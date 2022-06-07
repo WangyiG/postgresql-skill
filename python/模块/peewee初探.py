@@ -8,17 +8,17 @@ from peewee import *
 db = PostgresqlDatabase('peewee_test', user='postgres', password='postgres',host='127.0.0.1') 
 
 # 创建一个指定数据库的基本模型类
-class Notes(Model):
+class BaseModel(Model):
+    class Meta:
+        database = db
+
+# 定义一个继承于基本模型类的模型类
+class Notes(BaseModel):
     created_at = DateTimeField(constraints=[SQL("DEFAULT CURRENT_TIMESTAMP")], null=True)
     updated_at = DateTimeField(constraints=[SQL("DEFAULT CURRENT_TIMESTAMP")], null=True)
     deleted_at = DateTimeField(index=True, null=True)
     name = CharField()
     data = CharField()
-    
-    # 设置表名，数据库等
-    class Meta:
-        table_name = 'notes'
-        database = db
      
     
 # 创建notes表
