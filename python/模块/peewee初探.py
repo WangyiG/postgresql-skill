@@ -23,6 +23,7 @@ class Notes(BaseModel):
     
 # 创建notes表
 if not db.table_exists('notes'):
+    # 列表中可根据多个模型创建多个表
     db.create_tables([Notes])
     
 # 增
