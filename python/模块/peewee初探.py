@@ -8,6 +8,7 @@ from peewee import *
 db = PostgresqlDatabase('peewee_test', user='postgres', password='postgres',host='127.0.0.1') 
 
 # 创建一个指定数据库的基本模型类
+# 为了不污染模型命名空间，特定于模型的配置被放置在一个名为Meta的特殊类中
 class BaseModel(Model):
     class Meta:
         database = db
