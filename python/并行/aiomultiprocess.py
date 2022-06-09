@@ -1,14 +1,11 @@
 # 新建functest.py
 
-import json
+import orjson
 import pandas as pd
 
-async def f(x):
-    with open(x,'r',encoding='utf-8') as fs:
-        res = []
-        for f in fs:
-            res.append(json.loads(f.strip()))
-    return pd.DataFrame(res).query('name=="张三"')
+async def txt_to_df(x):
+    with open(x,'r',encoding='utf-8') as fr:
+        return pd.DataFrame(map(lambda x:orjson.loads(x),fr.readlines())).query('name=="张三"')
 
 async def g(x):
     m = await f(x)
@@ -20,20 +17,23 @@ async def g(x):
 import pandas as pd
 from aiomultiprocess import Pool 
 import asyncio
-import json
+import orjson
 from functest import g
 from glob import glob
 
 paths = glob('/Users/mt/Documents/python/群友题解/IO数据/records/*.txt')
 
-res_ = []
+df_list = []
 async def main():
     async with Pool() as pool:
-        async for res in pool.map(g,paths):
-            res_.append(res)
+        async for df in pool.map(txt_to_df,paths):
+            df_list.append(df)
 await main()
 
-pd.concat(res_)
+df_zs = pd.concat(df_list).sort_values('timestamp')
+
+for i,j in df_zs.groupby(pd.to_datetime(df_zs.timestamp,unit='ms').dt.date):
+    j.to_csv(f"E:\\数据测试\\records\\res\\{i}.txt",index=False,mode='a+')
 
 
 
