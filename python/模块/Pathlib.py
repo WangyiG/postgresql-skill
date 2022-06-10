@@ -98,6 +98,20 @@ list(path_.rglob('*.txt'))
     fw.write('Over!')    
      
      
+# 一个简单示例
+# 将excel文件夹中的xls文件转成csv存入excel同级的csv文件夹
 
+input_path = r"C:\Users\wangy\Documents\pandas学习\VScode\excel\ae.xls"
+
+# 先创建dir
+dir = Path(input_path).parents[1]/'csv'
+if not dir.exists():
+    dir.mkdir()
+
+# 然后才能用dir路径
+pd.read_excel(input_path).to_csv(dir/(Path(input_path).stem+'.csv'),index=False)
+ 
+     
+   
      
      
