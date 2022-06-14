@@ -15,6 +15,7 @@
 -- select * from (values(1,'test1'),(2,'test2'),(3,'test3')) as t(id, info)
 
 
+4.并差交
 -- union 去重，需要注意的是去重不仅是去除2表中都有的重复行，单表中的重复行也会被去除成非重
 select * from (values (1),(1)) x(id) union select * from (values (2),(2)) y(id);
 
@@ -26,3 +27,22 @@ select * from (values (1),(1),(2)) x(id) except select * from (values (2),(2)) y
 
 -- 取2表交集，结果会去重
 select * from (values (1),(1),(2)) x(id) intersect select * from (values (2),(2)) y(id);
+
+
+5.tsrange的全交处理
+-- range_intersect_agg(tsrange("Start_Date","End_Date"))
+
+SELECT 
+	"G2",
+	lower(res)  as start,
+	upper(res)  as end 
+from 
+	(select 
+		"G2",
+		range_intersect_agg(tsrange("Start_Date","End_Date")) over (PARTITION by "G2") as res 
+	from test) t
+        
+        
+
+
+       
