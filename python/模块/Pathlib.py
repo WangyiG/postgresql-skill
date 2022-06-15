@@ -55,7 +55,7 @@ Path(input_path).home()/'test'/'t.xls'
  
 # 路径建立与删除
      
-## 创建文件夹,文件夹存在会报错,所以要先exists判断
+## 创建文件夹,文件夹存在会报错,所以要先exists判断，更新mkdir有参数exist_ok=True，实现存在则忽略，否则创建
      
 new_dir = Path(r"C:\Users\wangy\Documents\pandas学习\VScode\test")
 if not new_dir.exists():
