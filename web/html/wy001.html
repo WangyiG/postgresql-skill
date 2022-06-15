@@ -11,12 +11,46 @@
 <br>
 <span style="color: brown">行内标签，只占内容实际的部分</span> <span>主要应用于行内不同样式的标记</span>
 <p>此处应有一大段内容</p>
+<a href="https://www.baidu.com/" target="_blank">跳转到百度</a>
+<br>
+<img style="height: 200px" src="/static/IMG_9694.JPG">
 </body>
 <!--
 webstorm中注释的快捷键是:command+'/'，注释与取消注释均可用
 1.head中设置编码与浏览器标签头title
-2.分割线符 hr，换行符 br，都是单标记，不必以</xx>标记结束
-3.div，快级标签，span行内标签
+2.分割线符 hr，换行符 br，都是单标记，不必以</xx>标记结束,自闭合标签
+3.div，块级标签，占用1行，h级标题也会占用1行，span行内标签
 4.html标记整个文件的开始结束，body标记内容部分
+5.超链接a标签:herf='xxx',xxx可以是外部网页，也可以是自己项目中的路由‘/xx/xxx’，通过路由找到函数，返回函数指定的某个html,target指定当前页跳转还是新建空白页跳转
+6.img标签也是一个自闭合标签，src=‘static/xxx.suffix’，指定图片地址,单指定高度会自动同比例设置宽度
 -->
 </html>
+
+
+<body>
+<h1>列表与表格</h1>
+<h2>无序运营商列表</h2>
+<ul>
+  <li>移动</li><li>电信</li><li>联通</li>
+</ul>
+<h2>无序运营商列表</h2>
+<ol>
+  <li>移动</li><li>电信</li><li>联通</li>
+</ol>
+<h2>个人信息表格</h2>
+<table border="1">
+  <thead> <tr><th>ID</th> <th>name</th> <th>age</th> </tr> </thead>
+  <tbody>
+    <tr> <td>1</td> <td>赵</td> <td>18</td>  </tr>
+    <tr> <td>2</td> <td>钱</td> <td>19</td>  </tr>
+    <tr> <td>3</td> <td>孙</td> <td>20</td>  </tr>
+  </tbody>
+</table>
+</body>
+<!--
+webstorm中注释的快捷键是:command+'/'，注释与取消注释均可用
+1.ul与ol指定列表类型无序还是有序，li标记具体内容
+2。table标签指定表格，thead与tbody指定表头与表格，tr指定行，th指定表头列，td指定表格列
+-->
+
+
