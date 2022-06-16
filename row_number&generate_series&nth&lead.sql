@@ -11,6 +11,7 @@
 - select generate_series(current_date-interval '6 D',current_date,'1 D')::date as recent_7_day,生成最近7天,如示例所示类型转换::date可以接在generate_series后面
 
 - select num_start,generate_series(0,num_end-num_start)+num_start from (values(1,3),(4,7)) as x(num_start,num_end),可利用特性实现explode效果
+- select gen_random_uuid(),year,generate_series(1,12) from generate_series(2020,2021) as year 爆炸
 
 3.first_value(),last_value(),nth_value() 聚合函数,需要搭配over使用，不使用order by 则基于原始行取值，有点fillna(nth_value)的感觉
 
