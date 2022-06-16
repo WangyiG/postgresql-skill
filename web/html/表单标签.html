@@ -56,6 +56,8 @@ webstorm中注释的快捷键是:command+'/'，注释与取消注释均可用
 5.type指定button普通按钮，submit提交表单，value指定按钮名字
 6.select指定下拉框，multiple参数指定单选还是多选下拉框，option指定具体下拉框中的信息
 7.textarea指定多行文本,rows参数设置显示默认可输入行数
+
+重要：表单标签应该写入from标签内,method参数设置为post，action参数指定路由,表单标签应该指明name参数,对于选择性表单标签还应指明value，方便request.form.get('xx')获取
 -->
 </html>
 
