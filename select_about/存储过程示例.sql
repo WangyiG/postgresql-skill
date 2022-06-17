@@ -44,7 +44,7 @@ SELECT mysum(ARRAY_AGG(fooid)) from foo;
 
 
 
-
+                                                                                                                                                                          
 
 
 
