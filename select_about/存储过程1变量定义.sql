@@ -71,6 +71,17 @@ SELECT * FROM get_all_foo();
 */
 x RECORD;
 
+do                                           
+$$                                                                                          
+declare x record;                                                                           
+begin                                 
+for x in SELECT * from foo loop    
+RAISE NOTICE 'x.fooid=%,x.foosubid=%,x.name=%',x.fooid,x.foosubid,x.fooname;
+end loop;                             
+end;                                  
+$$;   
+
+
 -- 4.常量
 /*
 常量可以用于避免魔数（magic number），提高代码的可读性；
@@ -95,6 +106,22 @@ end;
 $$;   
 
 SELECT * FROM test
+
+
+-- 6.VARIADIC 可变类型
+/*
+需要把数组也声明为可变
+把数组爆炸，取出下标所对应的值,再min聚合
+*/
+- SELECT (ARRAY[3,1,4,2])[i] FROM generate_subscripts(ARRAY[3,1,4,2], 1) g(i);
+
+CREATE FUNCTION mleast(VARIADIC numeric[]) RETURNS numeric AS $$
+    SELECT min($1[i]) FROM generate_subscripts($1, 1) g(i);
+$$ LANGUAGE SQL;
+
+- SELECT mleast(10, 4, 5, 2); 返回 2
+- SELECT mleast(3, 1, 2);返回1
+
 
 
 
