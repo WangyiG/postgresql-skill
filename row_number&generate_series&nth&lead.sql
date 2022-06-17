@@ -24,3 +24,7 @@
 - select *,lag(v,1,0) over (partition by id) from (values(1,3),(1,1),(1,2),(2,5),(2,6),(2,4)) as x(id,v)
 
 - select *,lead(v,1,0) over () from (values(1,3),(1,1),(1,2),(2,5),(2,6),(2,4)) as x(id,v)
+
+5.generate_subscripts以数组指定维度的长度生成序列
+- select generate_subscripts( array[array['a','b'],array['c','d'],array['e','f']],1);
+- select generate_subscripts( array[array['a','b'],array['c','d'],array['e','f']],2);
