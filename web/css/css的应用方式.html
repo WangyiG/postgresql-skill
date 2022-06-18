@@ -1,0 +1,284 @@
+<!--
+css：层叠样式表
+3种应用方式：
+1.直接在标签属性上编写(低效)
+2.在head标签下编写style标签，body中的标签去匹配样式(重要)
+3.单独编写css文件，html在head标签中引入css文件（插件,引用一些优秀的css）
+-->
+
+
+<!--1.直接在标签属性中编写 -->
+
+<div style="color:green;">MangTi</div>
+
+
+<!--2.在head标签下编写style标签 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        /*给所有的div设置样式*/
+        div {
+            color: green;
+            }
+    </style>
+</head>
+<body>
+    <div>Mang</div>
+    <div>Ti</div>
+</body>
+</html>
+
+
+<!--3.head标签下引入css -->
+
+1.创建common.css:
+
+div {
+    color: green;
+}
+
+2.引入，<link rel="stylesheet" href="xxx.css">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+    <div>Mang</div>
+    <div>Ti</div>
+</body>
+</html>
+
+
+
+<!--
+选择器:有选择的把各种样式应用到具体标签
+1.class选择器:.class_name搭配标签中class = 'class_name'
+2.id选择器:#id_name搭配标签中id='id_name',缺点:所有标签的id是唯一的,不可复用
+3.标签选择器:不用.不用#，直接对指定标签使用，div/span/ul/ol/li/img/input等，缺点:不灵活,比如父级div与子级div通常我们是希望样式不一样的
+4.属性选择器:是对class选择器的扩展,通过.class_name[some_attr=attr_value]对同一个类定制不同的样式
+5.子选择器与后代选择器:父选择器>子选择器,仅向下找一层满足子选择器的;父选择器 后代选择器,找子辈的,孙辈的,所有后辈的满足后代选择器的
+ -->
+
+
+<!--1.class选择器-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        .name,.subname{
+            color: red;
+            text-align: center
+        }
+        div,p{
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="name">MangTi</div>
+    <div>
+        <a href="#">Email:4343631@qq.com</a>
+    </div>
+    <p class="subname">从前的时间慢</p>
+</body>
+</html>
+
+
+<!--2.id选择器-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        #i1 {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>MangTi</div>
+    <div>
+        <span id="i1">Email:4343631@qq.com</span>
+    </div>
+    <p>从前的时间慢</p>
+</body>
+</html>
+
+
+<!--3.标签选择器-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        li {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>MangTi</div>
+    <ul> skill
+        <li>python</li>
+        <li>SQL</li>
+        <li>HTML</li>
+    </ul>
+    <ol> 前端内容
+        <li>html</li>
+        <li>css</li>
+        <li>js</li>
+    </ol>
+</body>
+</html>
+
+
+<!--4.属性选择器-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        /* 找到class=c1并且attr=name的标签 */
+        .c1[attr="name"] {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="c1" attr="name" >MangTi</div>
+    <div class="c1" >老男孩</div>
+    <div class="c1" attr="name" >从前的时间慢</div> 
+</body>
+</html>
+
+
+<!--5.子选择器与后代选择器-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        .c1>p{
+            text-align:center;
+        }
+        .c1 p{
+          color:red;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="c1">
+        <p>MangTi</p>
+        <div>
+            <p>老男孩</p>
+            <div>
+                <p>从前的时间慢</p>
+            </div>
+        </div>
+      </div>
+    <body>
+</html>
+
+
+<!--6.选择器分组,样式之间用分号分隔，选择器之间用逗号分隔-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        .name,.subname{
+            color: red;
+            text-align: center
+        }
+        div,p{
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="name">MangTi</div>
+    <div>
+        <a href="#">Email:4343631@qq.com</a>
+    </div>
+    <p class="subname">从前的时间慢</p>
+</body>
+</html>
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
