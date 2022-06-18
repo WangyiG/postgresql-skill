@@ -112,12 +112,139 @@
 
 
 
-<!--4.font 字体 & 颜色-->
+<!--4.font 字体 & 颜色：font-family/font-size/font-weight/color-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        .c1{
+            font-family: "Times New Roman",Georgia,Serif;
+        }
+        .c2{
+            font-family: Arial,Verdana,Sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>字体格式font-family</h1>
+    <div class="c1">一白日依山尽，黄河入海流。</div>
+    <div class="c2">欲穷千里目，更上一层楼。</div>
+    <h1>字体大小font-size</h1>
+    <div style="font-size: 16px;">念天地之悠悠,独怆然而涕下</div>
+    <div style="font-size: 18px;">前不见古人,后不见来者</div>
+    <h1>字体加粗font-weigh</h1>
+    <div style="font-weight: 300">当时明月在,曾照彩云归</div>
+    <div style="font-weight: 400">落花人独立,微雨燕双飞</div>
+    <h1>字体颜色color</h1>
+    <div style="color: red;">远上寒山石径斜，白云生处有人家。</div>
+    <div style="color:#f0ad4e">停车坐爱枫林晚，霜叶红于二月花。</div>
+</body>
+</html>
 
 
 
+<!--5.文字对齐方式-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        .demo1{
+           width: 400px;
+        }
+        .demo2{
+            width: 400px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>水平方向</h1>
+    <div class="demo1" style="background-color: pink;text-align: left;">MangTi</div>
+    <div class="demo1" style="background-color: darkseagreen;text-align: center;">Fighting!</div>
+    <div class="demo1" style="background-color: goldenrod; text-align: right;">We can do it!</div>
+    <h1>垂直方向</h1>
+    <div class="demo2" style="background-color: pink;">MangTi</div>
+    <div class="demo2" style="background-color: darkseagreen;line-height: 100px;">line-height be used common!</div>
+    <div class="demo2" style="background-color: goldenrod;position: relative; ">
+        <span style="position: absolute;bottom: 0;">Just do it.</span>
+    </div>
+</body>
+</html>
 
 
+<!--6.内边距：padding-->
+
+/* 单独设置上下左右内边距 */
+padding-left:8px;
+padding-right:2px;
+padding-top:4px;
+padding-bottom:18px;
+/* padding:上 右 下 左（顺时针方向）; */
+padding:10px 0 2px; 4px;
+/* padding:上下  右左; */
+padding:7px 5px;
+/* padding:上下右左; */
+padding:8px;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+</head>
+<body>
+<h1>无内边距</h1>
+<div style="height: 200px;border: 1px solid #dddddd">
+    <div style="background-color: darkseagreen;">听妈妈的话</div>
+    <div>
+        小朋友你是否有很多问号，为什么别人在那看漫画，我却在学画画对着钢琴说话。
+    </div>
+</div>
+<h1>内边距示例1</h1>
+<div style="height: 200px;border: 1px solid #dddddd">
+    <div style="background-color: gold;padding: 10px;">听爸爸的话</div>
+    <div style="padding: 10px;">
+        小朋友你是否有很多问号，为什么别人在那看漫画，我却在学画画对着钢琴说话。
+    </div>
+</div>
+<h1>内边距示例2</h1>
+<div style="height: 200px;border: 1px solid #dddddd;padding: 10px;">
+    <div style="background-color: gold;">听爸爸的话</div>
+    <div>
+        小朋友你是否有很多问号，为什么别人在那看漫画，我却在学画画对着钢琴说话。
+    </div>
+</div>
+</body>
+</html>
+
+
+<!--7.外边距：margin-->
+
+/*
+设置方法同padding内边距
+与内边距不同的2点：
+1.body标签默认有一个8px的外边距
+2.只要指定宽度并设置margin:0 auto 即可实现div自动居中布局
+*/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+</head>
+<body>
+    <div style="height: 200px;background-color: gold;margin-right: 50px;margin-left: 50px;"></div>
+    <div style="height: 200px;background-color: pink;margin-top: 20px;"></div>
+    <div style="width:60%;margin:0 auto;">把该div水平居中了,文字是左对齐的,可以从文字的开头看出div的左外边距</div>
+</body>
+</html>
 
 
 
