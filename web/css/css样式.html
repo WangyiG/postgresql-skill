@@ -1,0 +1,144 @@
+<!--1.height 高度 & width 宽度-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        .c1{
+            height: 60px;
+            background-color: #2b669a;
+        }
+        .c2{
+            height: 60px;
+            width: 200px;
+            background-color: #2aabd2;
+        }
+        .c3{
+            height: 60px;
+            width: 40%;
+            background-color: gold;
+        }
+        .c4{
+            height: 60px;
+            width: 60%;
+            background-color: deeppink;
+        }
+        .c1,.c2,.c3,.c4{
+            text-align: center;
+            line-height: 60px;
+            /*设置inline-block后,c1未设置宽度,会按实际内容宽度来，类似span标签*/
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class='c1'>标签1</div>
+    <div class='c2'>标签2</div>
+    <div class='c3'>标签3</div>
+    <div class='c4'>标签4</div>
+</body>
+</html>
+
+
+<!--2.display 显示,block/inline/inline-block/none-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+    <style>
+        div,span{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>div标签</h1>
+    <!--对于基础的span和div设置display:inline,height并未生效-->
+    <div style="background-color: #2aabd2;display: inline;height: 60px;">我是div</div>
+    <div style="background-color: #2aabd2;height: 60px;">我是div</div>
+    <h1>span标签</h1>
+    <span style="background-color:gold;height: 60px;">我是span</span>
+    <span style="background-color:gold;display: block;height: 60px;">我是span</span>
+    <!--总结，HTML标签中 div和span标签可以通过display属性完全互换，其实记住一个div就行了。-->
+    <h1>特殊的display:inline-block</h1>
+    <div style="display: inline-block;background-color: pink;height: 60px;">我是</div>
+    <div style="display: inline-block;background-color: goldenrod;height: 60px;">MangTi</div>
+</body>
+</html>
+
+
+
+<!--3.float 浮动,主要用于实现N个块级标签并排存放-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+</head>
+<body>
+    <h1>向左浮动</h1>
+    <div style="background-color:gold">
+        <div style="float:left;width: 100px;background-color: green;">天堂</div>
+        <div style="float: left;width: 100px;background-color: red;">地狱</div>
+        <!--布局中使用float，会出现脱离文档流的情况，即父级样式被覆盖，需要按下面一个例子来处理-->
+    </div>
+    
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS学习</title>
+</head>
+<body>
+    <h1>向左浮动</h1>
+    <div style="background-color:gold">
+        <div style="float:left;width: 100px;background-color: green;">天堂</div>
+        <div style="float: left;width: 100px;background-color: red;">地狱</div>
+        <!-- 清除浮动，与使用了float属性的标签放在同一级 -->
+        <div style="clear:both;"></div>
+    </div>
+    
+</body>
+</html>
+
+
+
+<!--4.font 字体 & 颜色-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
