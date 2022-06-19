@@ -4,3 +4,6 @@ npm install -g npm
 
 # WARN logfile could not be created
 将c盘当前用户下的隐藏文件.npmrc删除
+
+# mac
+https://www.jianshu.com/p/3dcd75ca3169
