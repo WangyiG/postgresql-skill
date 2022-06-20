@@ -13,7 +13,7 @@
 </div>
 
 <script>
-  // 创建vue对象，关联html
+  // 创建vue对象，关联html（el，data，methods为关键字）
   var app = new Vue({
     // 指定区域为id为app的部分
     el: '#app',
@@ -22,10 +22,10 @@
       name: 'MxxxTx',
       mobile: '139xxxx6010'
     },
-    // 函数，绑定事件
+    // clickFunc事件绑定了一个修改初始变量的函数
     methods: {
       clickFunc: function () {
-        // this可以理解为vue实例
+        // this可以理解为vue实例,然后调用实例的name与mobile属性
         this.name = 'mangti';
         this.mobile = '13915056010';
       }
