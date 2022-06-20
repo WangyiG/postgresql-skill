@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <h1>hello-vue</h1>
+  <div>name:{{name}},mobile:{{mobile}}</div>
+  <input type="button" value="search" v-on:click="clickFunc">
+</div>
+
+<script>
+  // 创建vue对象，关联html
+  var app = new Vue({
+    // 指定区域为id为app的部分
+    el: '#app',
+    // 定义一些初始变量
+    data: {
+      name: 'MxxxTx',
+      mobile: '139xxxx6010'
+    },
+    // 函数，绑定事件
+    methods: {
+      clickFunc: function () {
+        // this可以理解为vue实例
+        this.name = 'mangti';
+        this.mobile = '13915056010';
+      }
+    }
+  });
+</script>
+</body>
+</html>
+
+
