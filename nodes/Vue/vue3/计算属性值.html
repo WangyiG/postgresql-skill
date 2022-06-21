@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <div id="ex">
+        {{ author.name }} have books more than 2 : {{ publishedBooksMessage }}
+        <hr>
+        The First book is : {{ author.books[0] }}
+        <hr>
+        The First book is Vue 2 - Advanced Guide ? {{ func() }}
+
+    </div>
+
+    <script>
+
+        // 配置应用实例,注册资源选项，如data，methods，component组件，不同的生命周期钩子,computed计算属性选项
+        const app = {
+            // 注意深层响应性，name属性需要通过author.name才能取到
+            // 可以取property的自身属性,如示例中的length，列表切片(从0开始,不支持负索引)
+            data() {
+                return {
+                    author: {
+                        name: 'MangTi',
+                        books: [
+                            'Vue 2 - Advanced Guide',
+                            'Vue 3 - Basic Guide',
+                            'Vue 4 - The Mystery'
+                        ]
+                    }
+                }
+            },
+
+            // 计算属性选项
+            // 把一个方法作为一个属性，描述的是如何根据一个值派生出一个值，另外，仔细看计算属性与方法的插值语法，方法必须要带括号传递
+            // 计算属性值会基于其响应式依赖被缓存，只要 author.books 不改变，会立即返回先前的计算结果
+            // 避免修改计算属性值，但可通过getter和setter方法来修改
+            computed: {
+                // 一个计算属性的 getter
+                publishedBooksMessage() {
+                    // `this` 指向当前组件实例
+                    return this.author.books.length > 2 ? 'Yes' : 'No'
+                }
+            },
+            methods:{
+                func(){
+                    return this.author.books[0] === 'Vue 2 - Advanced Guide' ? 'Yes' : 'No'
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#ex')
+
+    </script>
+
+
+</body>
+
+</html>
