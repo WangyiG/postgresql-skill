@@ -11,8 +11,9 @@
     
     <div id="ex">
         <p>{{ message }}</p>
-        <!--利用v-on指令将click样式标签与reverseMessage方法绑定-->
+        <!--利用v-on指令将click样式标签与reverseMessage方法绑定，v-on可以简写为@-->
         <button v-on:click="reverseMessage">反转 Message</button>
+        <button @click="reverseMessage">反转 Message</button>
       </div>  
     
     <script>
