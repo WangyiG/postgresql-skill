@@ -58,7 +58,7 @@
     </style>
 
     <!--import vue-->
-    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <script src="https://unpkg.com/vue@next"></script>
     <script src="./vue3.js"></script>
 </head>
 <body>
@@ -70,13 +70,20 @@
         <button id='bt1' v-on:click="clickMe">clickme</button>
     </div>
     <script>
-        //配置一个obj对象，obj的el属性指定应用区域，data属性指定初始变量，methods属性存放事件绑定的处理函数
+        // 配置一个obj对象，obj的el属性指定应用区域，data属性指定初始变量，methods属性存放事件绑定的处理函数
+        // 对象data属性的2种写法
         const obj={
-            data:function(){
+            // data:function(){
+            //     return {
+            //     name:'mxxxxxi',
+            //     mobile:'139xxxx6010'
+            //     }
+            // }
+            data(){
                 return {
                 name:'mxxxxxi',
                 mobile:'139xxxx6010'
-            }
+                }
             },
             // this可以理解为obj对象的实例，this.name属性，this.mobile属性
             methods:{
@@ -94,3 +101,6 @@
 </body>
 </html>
 
+
+  
+  
