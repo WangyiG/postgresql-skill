@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-on</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    
+    <div id="ex">
+        <!--条件判断v-if指令，根据seen的bool值决定该p标签是否可见-->
+        <p v-if="seen">{{ message }}</p>
+
+        <!--v-model指令常用于数据与数据的绑定，v-bind常用于样式标签的绑定，v-on常用于methods的绑定-->
+        <input v-model="message" />
+
+        <!--v-on指令处理seen的布尔值-->
+        <button @click='seenUse'>点击可见隐藏内容</button>
+    </div>
+    
+    <script>
+        // 配置对象，data(){}配置初始变量，methods:{func_name(){}}配置响应方法
+        const obj = {
+            data(){
+                return {
+                    message:'Hello Vue.js!',
+                    seen:false
+                }
+            },
+            methods:{seenUse(){
+                this.seen=true
+            }
+        }    
+        }
+
+        // 创建应用，传入对象，挂载到指定区域
+        Vue.createApp(obj).mount('#ex')
+    </script>
+</body>
+</html>
