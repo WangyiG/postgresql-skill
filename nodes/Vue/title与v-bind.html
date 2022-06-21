@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-bind</title>
+    <script src="./vue3.js"></script>
+</head>
+<body>
+    <div title="固定显示">Title标签指定鼠标悬停时显示的内容</div>
+    <div id="ex">
+        <!--
+              v-bind被称为指令,指令带有前缀 v-，以表示它们是 Vue 提供的特殊 attribute
+              将这个元素节点的title样式标签与当前活跃实例obj的message动态property属性进行绑定
+        -->
+        <span v-bind:title="message">v-bind绑定一个可变的title悬停内容</span>
+        <br>
+        <span v-bind:title="message">v-bind:title可以先写成:Title</span>
+    </div>
+    
+    <script>
+        const obj = {
+            data(){
+                return {
+                    message:'today is : ' + new Date().toLocaleString()
+                }
+            }
+        }
+        Vue.createApp(obj).mount('#ex')
+    </script>
+</body>
+</html>
