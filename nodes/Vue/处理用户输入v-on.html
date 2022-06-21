@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-on</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    
+    <div id="ex">
+        <p>{{ message }}</p>
+        <!--利用v-on指令将click样式标签与reverseMessage方法绑定-->
+        <button v-on:click="reverseMessage">反转 Message</button>
+      </div>  
+    
+    <script>
+        // 配置对象
+        const obj = {
+            data(){
+                return {
+                    message:'Hello Vue.js!'
+                }
+            },
+            // // vue2写法
+            // methods:{
+            //     reverseMessage:function(){
+            //         this.message = this.message
+            //         .split('')
+            //         .reverse()
+            //         .join('')
+            //     }
+            // }
+            // vue3写法
+            methods:{
+                reverseMessage(){
+                    this.message = this.message
+                    .split('')
+                    .reverse()
+                    .join('')
+                }
+            }
+        }
+
+         // 创建应用，传入对象，挂载到指定区域
+        Vue.createApp(obj).mount('#ex')
+    </script>
+</body>
+</html>
