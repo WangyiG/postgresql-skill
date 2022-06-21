@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-on</title>
+
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+
+    <div id="components-app" class="demo">
+        <ol>
+            <!--v-for指令需要绑定key属性，这个好像有点深，目前只知道是为了对齐，防止错位-->
+            <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+        </ol>
+    </div>
+
+    <script>
+        // 先捋一捋流程，配置对象ComponentsApp，创建应用app，注册子组件todo-item，挂载区域#components-app
+
+
+        // 配置对象ComponentsApp，定义初始变量groceryList
+        // 今天学习了配置对象时的components组件选项，之前学习有data、methods选项
+        const ComponentsApp = {
+            data() {
+                return {
+                    groceryList: [
+                        { id: 0, text: 'Vegetables' },
+                        { id: 2, text: 'Cheese' },
+                        { id: 2, text: 'Whatever else humans are supposed to eat' }
+                    ]
+                }
+            },
+            components:{'todo-item':{
+                props:['todo'],
+                template:'<li>{{ todo.text }}</li>'
+            }}
+        }
+
+
+        // 创建app应用，传入ComponentsApp对象
+        const app = Vue.createApp(ComponentsApp)
+
+        // 注册子组件有2种方式，可以直接在对象中增加components选项，传入子组件:{props:xx,template:xx},另一种如下:创建对象并传入对象后另行注册
+        // 从内向外，定义子组件todo-item，定义子组件时做了2件事：
+        // 1.指定了属性props(在html中v-bind:todo绑定了父组件数据groceryList中的元素)
+        // 2.指定样式模板template为li标签+插值表达式，从最终看,实际是循环调用grocery.text
+        // app.component('todo-item', {
+        //     props: ['todo'],
+        //     template: `<li>{{ todo.text }}</li>`
+        // })
+
+        // 挂载区域
+        app.mount('#components-app')
+    </script>
+</body>
+
+</html>
