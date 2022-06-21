@@ -15,5 +15,5 @@
 2. 示例:v-on:click='clickMe',v-bind:title='some text',v-if='seen'
 3. 实现:指令attribute的值预期是单个JavaScript表达式,指令的职责是,当表达式的值改变时,将其影响作用于DOM（文档对象模型）
 4. 指令的参数:参数在指令名称之后以:连接,如示例中的click,title,不是所有的指令都有参数,如示例中的v-if
-5. 动态参数:用方括号包裹,<a v-on:[eventName]="doSomething"></a>,比如这里,动态参数可以是'click'也可以是'fcous'，又如这里<div v-bind="objectOfAttrs"></div>,可以设置objectOfAttrs: {id: 'container',class: 'wrapper'}动态绑定多个值
+5. 动态参数:用方括号包裹,<a v-on:[eventName]="doSomething">,比如这里,动态参数可以是'click'也可以是'fcous'，又如这里<div v-bind="objectOfAttrs">,可以设置objectOfAttrs: {id: 'container',class: 'wrapper'}动态绑定多个值
 6. 修饰符:<form v-on:submit.prevent="onSubmit"></form>,指令对于触发的事件调用event.preventDefault()
