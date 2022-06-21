@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <div id="ex">
+        <button @click="increment">Count is: {{ count }}</button>
+    </div>
+
+    <script>
+
+        // 配置应用实例
+        // 注册资源选项，如data，methods，component组件，不同的生命周期钩子
+        const app = {
+            // data() 返回的property属性将会成为响应式的状态
+            // 并且暴露在 `this` 上
+            data() {
+                return {
+                    count: 0
+                }
+            },
+
+            // methods 是一些用来更改状态与触发更新的函数
+            // 它们可以在模板中作为事件监听器绑定
+            methods: {
+                increment() {
+                    this.count++
+                }
+            },
+
+            // 生命周期钩子会在组件生命周期的各个不同阶段被调用
+            // 例如这个函数就会在组件挂载完成后被调用
+            mounted() {
+                console.log(`The initial count is ${this.count}.`)
+            }
+        }
+
+        // 配置好后,创建应用实例,挂载应用
+        // 应用实例必须在调用了.mount()方法挂载之后才会渲染出来,该方法接收一个“容器”参数,可以是一个实际的DOM元素或是一个CSS选择器字符串
+        // 不同于其他资源注册方法.mount()方法的返回值是根组件实例而非应用实例
+        Vue.createApp(app).mount('#ex')
+
+    </script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+<!--import写法-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc</title>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+          }
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <button @click="count++">Count is: {{ count }}</button>
+    </div>
+
+    <script type="module">
+
+        // 每个Vue应用都是通过createApp函数创建一个应用实例开始
+        import { createApp } from 'vue'
+        const app = createApp({
+            data() {
+                return {
+                    count: 0
+                }
+            }
+        })
+
+        //挂载应用应该始终在整个应用配置和资源注册完成后被调用
+        //应用实例必须在调用了.mount()方法后才会渲染出来,该方法接收一个“容器”参数,可以是一个实际的DOM元素或是一个CSS选择器字符串
+        //不同于其他资源注册方法.mount()方法的返回值是根组件实例而非应用实例
+        app.mount('#app')
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
