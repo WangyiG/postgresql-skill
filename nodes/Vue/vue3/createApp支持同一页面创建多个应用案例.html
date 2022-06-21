@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <div id="ex">
+        <button @click="increment">Count is: {{ count }}</button>
+    </div>
+    <div id="ex1">
+        <button @click="clickMe">new Count_1 is: {{ Count_1 }}</button>
+    </div>
+
+    <script>
+
+        // 配置应用实例
+        // 注册资源选项，如data，methods，component组件，不同的生命周期钩子
+        const app = {
+            // data() 返回的property属性将会成为响应式的状态
+            // 并且暴露在 `this` 上
+            data() {
+                return {
+                    count: 0
+                }
+            },
+
+            // methods 是一些用来更改状态与触发更新的函数
+            // 它们可以在模板中作为事件监听器绑定
+            methods: {
+                increment() {
+                    this.count++
+                }
+            },
+
+            // 生命周期钩子会在组件生命周期的各个不同阶段被调用
+            // 例如这个函数就会在组件挂载完成后被调用
+            mounted() {
+                console.log(`The initial count is ${this.count}.`)
+            }
+        }
+
+        // 配置好后,创建应用实例,挂载应用
+        // 应用实例必须在调用了.mount()方法挂载之后才会渲染出来,该方法接收一个“容器”参数,可以是一个实际的DOM元素或是一个CSS选择器字符串
+        // 不同于其他资源注册方法.mount()方法的返回值是根组件实例而非应用实例
+        Vue.createApp(app).mount('#ex')
+
+        const app1 = {
+            data() {
+                return {
+                    Count_1: 1
+                }
+            },
+            methods: {
+                clickMe() {
+                    this.Count_1++
+                }
+            }
+        }
+        Vue.createApp(app1).mount('#ex1')
+
+        // createApp API允许多个Vue应用共存于同一个页面上,而且每个应用都拥有自己的用于配置和全局资源的作用域
+
+    </script>
+
+
+</body>
+
+</html>
