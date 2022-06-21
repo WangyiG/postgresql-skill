@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-on</title>
+
+    <style>
+        #ex div{
+            margin: 5px 10px;
+        }
+        button{
+            margin-left:200px
+        }
+    </style>
+
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    
+    <div id="ex">
+        <!--v-for循环指令，绑定数组的数据到列表或表格-->
+        <div>
+            <ol>
+                <!--v-for指令的位置需要根据需求确认好，比如写入ol标签，效果又不一样-->
+                <li v-for="user in users">name is  {{user.name}},mobile is {{user.mobile}}</li>
+            </ol>
+        </div>
+        <div v-if="seen">
+            <table>
+                <tr>
+                    <th>name</th>
+                    <th>mobile</th>
+                </tr>
+                <!--先取数组元素,再调用数组元素的属性-->
+                <tr v-for="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.mobile}}</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <!--v-on指令处理seen的布尔值-->
+        <button @click='seenUse'>显示表格</button>
+        </div>   
+    </div>
+    
+    <script>
+        // 配置对象，data(){}配置初始变量，methods:{func_name(){}}配置响应方法
+        const obj = {
+            data(){
+                return {
+                    users:[
+                        {name:'mangti',mobile:123},
+                        {name:'geete',mobile:456}
+                    ],
+                    seen:false
+                }
+            },
+            methods:{seenUse(){
+                this.seen=true
+            }
+        }    
+        }
+
+        // 创建应用，传入对象，挂载到指定区域
+        Vue.createApp(obj).mount('#ex')
+    </script>
+</body>
+</html>
