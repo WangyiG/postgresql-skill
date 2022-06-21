@@ -36,3 +36,61 @@
 </html>
 
 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #bt1{
+            color:red
+        }
+        #bt1:hover{
+            color:brown
+        }
+        .item{
+            margin-top: 20px;
+        }
+    </style>
+
+    <!--import vue-->
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <script src="./vue3.js"></script>
+</head>
+<body>
+    <div id="main">
+        <h3>hello vue</h3>
+        <div class="item">my name is {{name}}</div>
+        <div class="item">mobile is {{mobile}}</div> 
+        <div class="item">
+        <button id='bt1' v-on:click="clickMe">clickme</button>
+    </div>
+    <script>
+        //配置一个obj对象，obj的el属性指定应用区域，data属性指定初始变量，methods属性存放事件绑定的处理函数
+        const obj={
+            data:function(){
+                return {
+                name:'mxxxxxi',
+                mobile:'139xxxx6010'
+            }
+            },
+            // this可以理解为obj对象的实例，this.name属性，this.mobile属性
+            methods:{
+                clickMe:function(){
+                     this.name = 'MangTi';
+                     this.mobile = '13915056010'
+                }
+            }}
+
+        // 创建应用，挂载对象    
+        Vue.createApp(obj).mount('#main');
+
+    </script>
+    
+</body>
+</html>
+
