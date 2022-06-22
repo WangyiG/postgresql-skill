@@ -1,0 +1,90 @@
+// public目录中的index.html是唯一入口,用户看到的内容全部封装在<div id='app'></div>
+// <div id='app'></div>的实际内容由src目录中main.js初始化入口构建，所有的组件路由最终都是通过main.js写入到index.html中
+// main.js做了那些工作？create创建app应用(核心配置在app.vue中)，use组件，use插件，mount挂载应用案例
+// app.vue单文件组件做了那些工作？template构建html，style构建css，script构建js
+// app.vue中的template,先是一个nav标签，里面有2个router-link(可以理解为a标签),其中to属性绑定路由，再来一个router-view标签，该标签的作用是根据路由在区域内动态显示内容
+也即nav标签在所有路由中显示,而其它区域的显示内容跟着路由去src/router/index.js中找映射,什么路由对应什么组件(组件在src/views目录中找，更小的子组件去src/components目录中找)
+// components中的子组件在script中引入后做为标签使用，views中的组件用于路由映射
+// 新建页面：
+1.在app.vue中的nav标签下新增一个router-link标签test，to属性=‘/test’
+2.在router/index.js中建立路由映射,path:'/test',component:TestView
+3.在views目录中新建TestView.vue
+4.回到router/index.js，导入TestView，import TestView from '../views/TestView.vue'
+
+// axios模块
+1.cd切换到项目目录，npm install -S axios
+2.在TestView.vue的script中先import axios from 'axios'
+3.见下code1
+
+
+
+
+
+
+
+
+
+
+
+code1:
+<template>
+  <div class="test">
+    <h1>The weather 5 days</h1>
+    <div>
+      <input type="text" placeholder="city" v-model="city">
+      <button @click="getWeather">go</button>
+    </div>
+    <table v-if="weather_list.length>1">
+      <tr>
+        <th>日期</th>
+        <th>天气</th>
+        <th>温度</th>
+      </tr>
+      <tr v-for="weather in weather_list">
+        <td>{{ weather.date }}</td>
+        <td>{{ weather.type }}</td>
+        <td>{{ weather.low }}~{{ weather.high }}</td>
+      </tr>
+    </table>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  name: 'TestView',
+  data() {
+    return {
+      weather_list: [],
+      city:'常州'
+    }
+  },
+  methods:{
+    getWeather(){
+      axios.get("http://wthrcdn.etouch.cn/weather_mini",{
+        params:{
+          city:this.city
+        }
+      }).then((response) => {
+        this.weather_list = response.data.data.forecast
+      })
+  }},
+  mounted() {
+    this.getWeather()
+  }
+}
+</script>
+
+<style scoped>
+table{
+  width: 800px;
+  border-collapse: collapse;
+  margin-left: 350px;
+}
+
+th,td{
+  border: 1px solid brown;
+}
+</style>
+
