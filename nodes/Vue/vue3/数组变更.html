@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue数组变更</title>
+    <style>
+        button{
+            width: 120px;
+            height:35px;
+            margin-right: 10px;
+            background-color:cadetblue;
+            padding:0,
+        }
+        hr{
+            color: rebeccapurple;
+            margin-top: 10px 0;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    
+    <div id='ex1'>
+        <button @click="pushMe">push</button>
+        <button @click="popMe">pop</button>
+        <button @click="unshiftMe">unshift</button>
+        <button @click="shiftMe">shift</button>
+        <button @click="sortMe">sort</button>
+        <button @click="reverseMe">reverse</button>
+        <hr>
+        <button @click="spliceMe">splice删除用法</button>
+        <button @click="spliceMe1">splice插入用法</button>
+        <button @click="spliceMe2">splice替换用法</button>
+        <hr>
+        <p>新列表为 : {{list}},返回值为:{{res}}</p>
+    </div>
+    <hr>
+
+
+    <script>
+
+        const app1 = {
+            data() {
+                return {
+                    list:[3,6,4,5],
+                    res:''
+                }
+            },
+            methods:{
+                // 注意原地更改与返回值，返回值并不一定是新列表
+
+                //  push() 向数组的尾部添加若干元素，并返回数组的新长度
+                pushMe(){
+                    this.res=this.list.push(7,8);
+                },
+
+                // pop() 从数组的尾部删除一个元素（删且只删除一个元素,不接收参数），返回被删除的元素
+                popMe(){
+                    this.res = this.list.pop();
+                },
+
+                // unshift() 向数组的头部添加若干元素，返回数组的新长度
+                unshiftMe(){
+                    this.res=this.list.unshift(1,2);
+                },
+
+                // shift() 从数组的头部删除一个元素（删且只删除一个元素，不接收参数），返回被删除的元素
+                shiftMe(){
+                    this.res=this.list.shift();
+                },
+
+                // sort() 方法用于对数组的元素进行排序，就地更改并返回排序后的新列表
+                sortMe(){
+                    this.res=this.list.sort();
+                },
+
+                // reverse() 方法用于颠倒数组中元素的顺序，就地更改并返回颠倒后的新列表
+                reverseMe(){
+                    this.res=this.list.reverse();
+                },
+                // splice()方法可删除,可插入,可替换
+                // 第一参和第二参是必选参数,一参指定位置，二参指定从指定位置开始删除几个
+                // 在第一参和第二参之后的参数为插入参数,想插几个填几个,当2参为0时，不删除,只插入,不为0时又删又插,插入数量不受2参影响,2参先执行才执行3参
+                spliceMe(){
+                    this.res=this.list.splice(0,1);
+                },
+                spliceMe1(){
+                    this.res=this.list.splice(2,0,111,112);
+                },
+                spliceMe2(){
+                    this.res=this.list.splice(0,2,113);
+                },
+
+            }
+        }
+        Vue.createApp(app1).mount('#ex1')
+
+    </script>
+
+
+
+</body>
+</html>
