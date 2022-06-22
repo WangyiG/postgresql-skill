@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+</head>
+
+<body>
+
+    <div id='ex1'>
+      
+        <!--v-else指令-->
+      
+        <button @click="awesome = !awesome">Toggle</button>
+        <h1 v-if="awesome">Vue is awesome!</h1>
+        <h1 v-else>Oh no 😢</h1>
+      
+    </div>
+  
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+  
+    <div id="ex2">
+      
+        <!--v-else-if指令-->
+      
+        <div v-if="type === 'A'">
+            B
+        </div>
+        <div v-else-if="type === 'B'">
+            C
+        </div>
+        <div v-else-if="type === 'C'">
+            D
+        </div>
+        <div v-else>
+            Not A/B/C
+        </div>
+        <input v-model="type">
+      
+    </div>
+  
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+  
+    <div id='ex3'>
+      
+        <!--template是一个不可见的包装器元素,方便指令依附，同时对包装在内的多个元素生效-->
+        <button @click="ok = !ok">Toggle</button>
+        <template v-if="ok">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+      
+    </div>
+  
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+  
+    <div id="ex4">
+      
+        <!--
+            1.v-show也能按条件渲染
+            2.v-show不支持在template元素上使用，也没有else来配合
+            3.v-show会一直在DOM中保留并渲染该元素,只是渲染结果不显示而已，而v-if会销毁并重建，开销较高
+            4.总的来说：非常频繁切换时v-show更优，而运行时不常改变的时候v-if更优
+            5.v-if不推荐与v-for一起使用，你期待for循环来逐一判断，而实际v-if的优先级比v-for高，无论如何会优先执行v-if
+        -->
+        <button @click="ok = !ok">Toggle</button>
+        <h1 v-show="ok">Hello!</h1>
+      
+    </div>
+
+
+
+
+
+    <script>
+
+        const app1 = {
+            data() {
+                return {
+                    awesome: true,
+                }
+            },
+            methods: {
+
+            }
+        }
+        Vue.createApp(app1).mount('#ex1')
+
+        const app2 = {
+            data() {
+                return {
+                    type: "Data",
+                }
+            }
+        }
+        Vue.createApp(app2).mount('#ex2')
+
+        const app3 = {
+            data() {
+                return {
+                    ok: true,
+                }
+            }
+        }
+        Vue.createApp(app3).mount('#ex3')
+
+        const app4 = {
+            data() {
+                return {
+                    ok: true,
+                }
+            }
+        }
+        Vue.createApp(app3).mount('#ex4')
+
+
+
+    </script>
+
+</body>
+
+</html>
