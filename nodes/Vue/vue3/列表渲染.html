@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表渲染</title>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+</head>
+
+<body>
+
+    <div id='ex1'>
+        <!--
+            1.基础使用：v-for=’item in items‘，其中items是源数据中的数组，item是迭代项的别名
+            2.支持使用可选的第二个参数表示当前项的位置索引
+        -->
+        <ul>
+            <li v-for="(item,idx) in items">{{parentMessage}}-{{idx}}-{{item.message}}</li>
+        </ul>
+    </div>
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+    <div id='ex2'>
+        <!--
+            1.每个v-for作用域都可以访问到父级作用域
+            2.解构语法,类似py的解包a,={'key':value},不同的是py解包出的是key，而这里解构出的是value
+        -->
+        <ul>
+            <li v-for="({message},idx) in items">{{parentMessage}}-{{idx}}-{{message}}</li>
+        </ul>
+    </div>
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+    <div id='ex3'>
+        <!--
+            1.对于多层嵌套的数组
+            2.每个v-for作用域都可以访问到父级作用域
+        -->
+        <ul>
+            <li v-for="item in items">
+                <div v-for="childItem in item.children">
+                    {{ item.message }}-{{ childItem }}
+                </div>
+            </li>
+        </ul>
+    </div>
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+    <div id='ex4'>
+        <!--
+            1.默认是遍历属性值,第二个参数如果是列表对象会默认为索引，如果是字典对象则默认为key
+            2.所以列表对象还支持第三参数，表示字典元素在数组中的索引位置
+        -->
+        <ul>
+            <li v-for="(value, key, idx) in myObject">
+                {{ idx }} . {{ key }}: {{ value }}
+            </li>
+        </ul>
+    </div>
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+    <div id='ex5'>
+        <!--
+            1.在v-for中使用值范围,注意：这里n的初始值是1而非0
+        -->
+        <ul>
+            <li v-for="n in 5">
+                {{ n }}
+            </li>
+        </ul>
+    </div>
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+    <div id='ex6'>
+        <!--
+            1.新包装一层 <template> 在其上使用 v-for,再在内部使用v-if实现循环判断
+        -->
+        <template v-for="n in 6">
+            <li v-if="n%m===0">
+                {{ n }}
+            </li>
+        </template>
+    </div>
+  
+    <!--
+        抽象的key管理状态：
+        1.vue为了效率使用就地更新策略,当数据项的顺序改变时，不会随之移动DOM元素的顺序
+        2.为了给Vue一个提示，以便它可以跟踪每个节点的标识，从而重用和重新排序现有的元素，需要为每个项目提供一个唯一的 key attribute
+        3.将key绑定到数组主键上,:key='item.primary'
+    -->
+    <hr style="color: rebeccapurple;margin-top: 10px 0;">
+    <div id='ex7'>
+        <template v-for="todo in todos" :key="todo.mobile">
+            <li>{{ todo.name }}</li>
+          </template>
+        </template>
+    </div>
+
+
+
+
+
+    <script>
+
+        const app1 = {
+            data() {
+                return {
+                    parentMessage: 'Parent',
+                    items: [{ message: 'Foo' }, { message: 'Bar' }],
+                }
+            },
+        }
+        Vue.createApp(app1).mount('#ex1')
+
+        const app2 = {
+            data() {
+                return {
+                    parentMessage: 'Parent',
+                    items: [{ message: 'Foo' }, { message: 'Bar' }],
+                }
+            }
+        }
+        Vue.createApp(app2).mount('#ex2')
+
+        const app3 = {
+            data() {
+                return {
+                    parentMessage: 'Parent',
+                    items: [{ message: 'Foo', children: ['Foo-child1', 'Foo-child2'] }, { message: 'Bar', children: ['Bar-child1', 'Bar-child2'] }],
+                }
+            }
+        }
+        Vue.createApp(app3).mount('#ex3')
+
+        const app4 = {
+            data() {
+                return {
+                    myObject: {
+                        title: 'How to do lists in Vue',
+                        author: 'Jane Doe',
+                        publishedAt: '2016-04-10'
+                    }
+                }
+            }
+        }
+        Vue.createApp(app4).mount('#ex4')
+
+        const app5 = {
+            data() {
+                return {
+
+                }
+            }
+        }
+        Vue.createApp(app5).mount('#ex5')
+
+        const app6 = {
+            data() {
+                return {
+                    m: 3,
+                }
+            }
+        }
+        Vue.createApp(app6).mount('#ex6')
+
+        const app7 = {
+            data() {
+                return {
+                    todos:[
+                        {name:'mt',mobile:123},
+                        {name:'mx',mobile:456},
+                        {name:'my',mobile:789},
+                ],
+                }
+            }
+        }
+        Vue.createApp(app7).mount('#ex7')
+
+
+
+    </script>
+
+</body>
+
+</html>
