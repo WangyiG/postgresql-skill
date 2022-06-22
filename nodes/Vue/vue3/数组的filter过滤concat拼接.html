@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for搭配数组变更</title>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+</head>
+
+<body>
+
+
+    <div id="ex1">
+        <ul>
+            <li v-for="n in evenNumbers">{{ n }}</li>
+        </ul>
+    </div>
+    <hr>
+    <div id='ex2'>
+        <ul v-for="set in sets">
+            <li v-for="n in even(set)">{{ n }}</li>
+        </ul>
+    </div>
+    <hr>
+    <div id='ex3'>
+        <ul>
+            <li v-for="n in newList">{{ n }}</li>
+        </ul>
+        <p>{{ list }}</p>
+    </div>
+    <hr>
+    <div id='ex4'>
+        <ul>
+            <li v-for="n in newList">{{ n }}</li>
+        </ul>
+        <p>{{ l1 }},{{l2}}</p>
+    </div>
+    <hr>
+    <div id="ex5">
+        <ul>
+            <li v-for="n in evenNumbers">{{ n }}</li>
+        </ul>
+    </div>
+
+
+
+
+    <script>
+
+        const app1 = {
+            data() {
+                return {
+                    numbers: [1, 2, 3, 4, 5, 6],
+                }
+            },
+            // 推荐在计算属性中变更数组,而不实际变更或重置原始数组
+            computed: {
+                evenNumbers() {
+                    return this.numbers.filter(x => x % 2 === 0);
+                }
+            }
+        }
+        Vue.createApp(app1).mount('#ex1')
+
+        const app2 = {
+            data() {
+                return {
+                    sets: [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]
+                }
+            },
+            // 当多层循环计算不可行时改用方法
+            // 这里不能用this.set,因为set未暴露，它也不在data状态里
+            methods: {
+                even(set) {
+                    return set.filter(n => n % 2 === 0);
+                }
+            }
+        }
+        Vue.createApp(app2).mount('#ex2')
+
+        const app3 = {
+            data() {
+                return {
+                    list: [1, 2, 3, 4, 5],
+                }
+            },
+
+            // reverse与sort会改变原数组,在调用这些方法之前创建一个原数组的副本再调用
+            // 这里通过.slice来浅复制处理一下
+            computed: {
+                newList() {
+                    return this.list.slice().reverse();
+                }
+            }
+        }
+        Vue.createApp(app3).mount('#ex3')
+
+        const app4 = {
+            data() {
+                return {
+                    l1: [1, 2],
+                    l2: [3,4],
+                }
+            },
+
+            // concat拼接数组
+            computed: {
+                newList() {
+                    return this.l1.concat(this.l2);
+                }
+            }
+        }
+        Vue.createApp(app4).mount('#ex4')
+
+        const app5 = {
+            data() {
+                return {
+                    numbers: [1, 2, 3, 4, 5, 6],
+                }
+            },
+            computed: {
+                evenNumbers() {
+                    // 箭头符号函数的改写,理解一下箭头符函数
+                    // return this.numbers.filter(n => n % 2 === 0);
+                    return this.numbers.filter(function(x){
+                        return x%2 === 0
+                    })
+                }
+            }
+        }
+        Vue.createApp(app5).mount('#ex5')
+
+    </script>
+
+</body>
+
+</html>
