@@ -1,0 +1,82 @@
+cd到项目目录安装：npm i --save ant-design-vue@next
+网址：https://www.antdv.com/components/overview-cn/
+到main.js中导入import Antd from 'ant-design-vue',import 'ant-design-vue/dist/antd.css'，并使用app.use(Antd)声明使用
+到antd-vue网站上copy一个表单输入框及按钮代码如下：
+<a-input-search
+      v-model:value="value"
+      placeholder="input search text"
+      enter-button
+      @search="onSearch"
+    />
+只使用antd里写好的样式,样式中绑定的property,methods修改成自己的：
+<a-input-search
+      v-model:value="city"
+      placeholder="input search city"
+      enter-button
+      @search="getWeather"
+    />
+因为这里使用了palceholder默认值,并且table标签中v-if限制了默认值不合法的问题,所以这里可以把data状态中city修改为'',然后可以正常使用placeholder默认值
+
+继续使用antd栅格来优化搜索框,antd栅格把页面宽度分为24格,使用方式是a-row标签包裹a-col标签再包裹需要调整位置的标签,在a-col中span='m' offset='n'表示从第n+1格开始占用m格
+<a-row>
+  <a-col span='m' offset='n'>
+    <div></div>
+  </a-col>
+</a-row>
+
+下面利用antd来优化表格：
+先copy一段并栅格化处理一下：
+<a-row>
+    <a-col span="16" offset="4">
+      <a-table :columns="columns" :data-source="data">
+        <template #bodyCell="{ column, text }">
+          <template v-if="column.dataIndex === 'name'">
+            <a>{{ text }}</a>
+          </template>
+        </template>
+      </a-table>
+    </a-col>
+  </a-row>
+
+继续把script中的columns，copy到自己的data()中做为一个property，修改和接口获得的response键名一致
+columns: [{
+        title: 'Date',
+        dataIndex: 'date',
+        key: 'date',
+      }, {
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
+        width: 80,
+      }, {
+        title: 'High',
+        dataIndex: 'high',
+        key: 'high 1',
+        ellipsis: true,
+      }, {
+        title: 'Low',
+        dataIndex: 'low',
+        key: 'low 1',
+        ellipsis: true,
+      }, {
+        title: 'Fengxiang',
+        dataIndex: 'fengxiang',
+        key: 'fengxiang 2',
+        ellipsis: true,
+      }],
+
+继续给data()新增一个data:[],copy的table需要coulums和data，columns和response属性名一致后，data通过搜索框button绑定的getWeather方法通过axios获取
+
+继续修改getWeather，重点是this.data = response.data.data.forecast;
+
+getWeather() {
+      axios.get("http://wthrcdn.etouch.cn/weather_mini", {
+        params: {
+          city: this.city
+        }
+      }).then((response) => {
+        // this.weather_list = response.data.data.forecast;
+        this.data = response.data.data.forecast;
+      })
+    }
+
