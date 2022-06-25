@@ -1,0 +1,160 @@
+插槽子组件,item.vue:
+
+<template >
+    <h4>{{ title }}</h4>
+    <slot></slot>
+</template>
+
+<script>
+
+export default {
+  props:{
+    title:String
+  }
+}
+
+</script>
+
+
+饼图子组件,pie.vue:
+
+<template>
+    <div class="chart" ref="chart0"></div>
+</template>
+
+
+<script>
+import * as echarts from 'echarts';
+import { ref } from 'vue';
+
+export default {
+    setup() {
+        const value = ref();
+        return { value, }
+    },
+    methods: {
+        chart0() {
+            var myChart = echarts.init(this.$refs.chart0);
+            var option;
+
+            option = {
+                backgroundColor: '#2c343c',
+                title: {
+                    text: 'Customized Pie',
+                    left: 'center',
+                    top: 20,
+                    textStyle: {
+                        color: '#ccc'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                visualMap: {
+                    show: false,
+                    min: 80,
+                    max: 600,
+                    inRange: {
+                        colorLightness: [0, 1]
+                    }
+                },
+                series: [
+                    {
+                        name: 'Access From',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '50%'],
+                        data: [
+                            { value: 335, name: 'Direct' },
+                            { value: 310, name: 'Email' },
+                            { value: 274, name: 'Union Ads' },
+                            { value: 235, name: 'Video Ads' },
+                            { value: 400, name: 'Search Engine' }
+                        ].sort(function (a, b) {
+                            return a.value - b.value;
+                        }),
+                        roseType: 'radius',
+                        label: {
+                            color: 'rgba(255, 255, 255, 0.3)'
+                        },
+                        labelLine: {
+                            lineStyle: {
+                                color: 'rgba(255, 255, 255, 0.3)'
+                            },
+                            smooth: 0.2,
+                            length: 10,
+                            length2: 20
+                        },
+                        itemStyle: {
+                            color: '#c23531',
+                            shadowBlur: 200,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        },
+                        animationType: 'scale',
+                        animationEasing: 'elasticOut',
+                        animationDelay: function (idx) {
+                            return Math.random() * 200;
+                        }
+                    }
+                ]
+            };
+
+            option && myChart.setOption(option);
+        }
+    },
+    mounted() {
+        this.chart0()
+    }
+}
+</script>
+
+<style scoped>
+.chart {
+    height: 300px;
+    margin: 2px;
+}
+</style>
+
+
+在组件中使用插槽子组件与子组件:
+
+<template>
+
+    <header>Echarts Show Page</header>
+
+    <a-row type="flex" justify="space-around" align="middle">
+        <a-col :span="6">
+            <item title="chart1"><pie></pie></item>
+            <item title="chart2"><pie></pie></item>
+            <item title="chart3"><pie></pie></item>
+        </a-col>
+        <a-col :span="10">
+            <item><barexample></barexample></item>
+        </a-col>
+        <a-col :span="6">
+            <item title="chart4"><pie></pie></item>
+            <item title="chart5"><pie></pie></item>
+        </a-col>
+    </a-row>
+
+</template>
+
+
+<script>
+
+import item from '@/components/item.vue'
+import barchart from '@/components/barchart.vue'
+import barexample from '@/components/barexample.vue'
+import pie from '@/components/pie.vue'
+
+export default {
+    name: 'EchartsView',
+    components: {
+        item, barchart, barexample, pie
+    }
+}
+  
+</script>
+
+<style scoped>
+</style>
