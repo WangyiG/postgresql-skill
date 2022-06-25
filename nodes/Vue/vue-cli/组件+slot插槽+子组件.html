@@ -2,12 +2,14 @@
 
 <template >
     <h4>{{ title }}</h4>
+    <!--插槽空间，承载可渲染的分发内容-->
     <slot></slot>
 </template>
 
 <script>
 
 export default {
+  // 接收参数选项props,在父组件中使用<item title="xxx">接收参数
   props:{
     title:String
   }
