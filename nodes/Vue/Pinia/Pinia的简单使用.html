@@ -1,0 +1,103 @@
+// 概念:共享状态仓库,可以高效解决组件之间的参数传递问题，一般来说需要共享的数据我们放入pinia，而组件私有的数据可以继续存放data选项中，当然也可以所有数据都放入pinia
+// 核心内容:state(类似组件的data，存储全局状态),getters（类似组件computed，存放计算属性，支持缓存）,actions（类似组件methods，处理业务逻辑，修改状态）
+
+// 安装pinia:切换到项目目录，npm install pinia
+// 安装pinia持久化插件：npm i pinia-plugin-persist --save
+
+// 在vue@cli中修改vuex仓库为pinia仓库
+// 修改store目录下index.js为:
+
+import { createPinia } from 'pinia'
+
+// 引入持久化插件
+import piniaPluginPersist from 'pinia-plugin-persist'
+
+const store = createPinia()
+
+// 挂载插件
+store.use(piniaPluginPersist)
+
+export default store
+
+
+
+
+// store目录下新增user.js为:
+import { defineStore } from "pinia";
+
+export const useStore = defineStore(
+    'storeId',
+    {
+        state: () => {
+            return {
+                count: 0,
+                name: 'MangTi'
+            }
+        },
+        getters: {
+            changeCount() {
+                return this.count + 100
+            }
+        },
+        actions: {
+            UpCount(val) {
+                this.count += val
+            }
+        },
+        // 开启持久化缓存
+        // strategies配置项中支持storage指定将会话信息持久化存储在本地而非服务器端，这样即使关闭浏览器再打开也支持持久化
+        // strategies配置项中还支持用paths指定那些状态持久化存储
+        persist : {
+            enabled : true,
+            strategies : [
+                {
+                    key : 'keyName',
+                    storage : localStorage,
+                    paths : ['count']
+                }
+            ]
+        } 
+    }
+)
+
+
+
+
+// 在组件中使用状态仓库
+<template>
+  <div class="pinia">
+    <h1>This is an pinia page</h1>
+    <hr>
+    {{ name }} - {{ count }} - {{ changeCount }}
+    <hr>
+    <button @click = 'btn'>methods change</button>
+    <hr>
+    <button @click = 'btn1'>actions change</button>
+  </div>
+</template>
+
+<script setup>
+
+import { storeToRefs } from 'pinia';
+import { useStore } from '../store/use';
+
+const use = useStore();
+
+// 响应式解构，类似组件中的ToRefs
+let { count,name,changeCount} = storeToRefs(use);
+
+const btn = () => {
+  // 批量更新api，该形式修改是全部修改count和name后才刷新dom，而非修改一次刷新一次，更推荐
+  // 注意patch内是对state的修改
+  use.$patch(state => {
+    state.count++,
+    state.name = 'MT'
+  })
+}
+
+const btn1 = () => {
+  use.UpCount( 10) ;
+}
+
+</script>
+
