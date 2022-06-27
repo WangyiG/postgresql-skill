@@ -80,10 +80,9 @@ def index(request):
 
 ## 启动项目
 使用项目管理manage.py来启动项目
-- 这里是python而非python3.9
 - 因为默认的8000端口已经被我的vue占用了,这里指定8013端口来测试下
 ```sh
-python manage.py runserver 8013
+python3.9 manage.py runserver 8013
 ```
 
 ## 验证
