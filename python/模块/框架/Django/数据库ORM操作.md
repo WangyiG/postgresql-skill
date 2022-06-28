@@ -45,3 +45,35 @@ class Choice(models.Model):
 python3.9 manage.py makemigrations
 python3.9 manage.py migrate
 ```
+
+## ORM操作模型表以及其中的数据
+:::tip
+每次操作之后都要重新激活模型,才能生效
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
