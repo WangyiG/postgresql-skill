@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'stuapp',
     'students.apps.StudentsConfig',
 ]
-...
+```
 
 
 ## 创建模型
@@ -134,6 +134,40 @@ urlpatterns = [
 python manage.py runserver 8013
 ```
 回到浏览器打开:http://127.0.0.1:8013/api/stu/
+
+
+## 解决跨域
+1.在项目目录下安装django-cors-headers
+```py
+pip install django-cors-headers
+```
+2.在settings文件中注册corsheaders
+```py
+INSTALLED_APPS = [
+     ...,
+    'rest_framework',
+    'stuapp',
+    'students.apps.StudentsConfig',
+    'corsheaders',
+]
+```
+3.在settings文件中间件中注册
+```py
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
+     ...
+    ]
+```
+4.setting文件最后新增3句code
+```py
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = ('*')
+```
 
 
 
