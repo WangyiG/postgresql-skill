@@ -14,13 +14,13 @@ cd /Users/mt/Documents/pyproject/MyDjango
 brew install tree
 切换至创建的mydemo目录,执行tree
 ```
-mydemo
+mydemo                      // 随项目创建的根目录                       
 ├── manage.py               // 项目管理，启动项目，创建app，数据管理，经常使用但很少修改该文件
-└── mydemo                  
-    ├── __init__.py
+└── mydemo                  // 随项目创建的包,用于被寻址被导入
+    ├── __init__.py         // 包的初始化文件
     ├── asgi.py             // 异步，接收网络请求
-    ├── settings.py         // 项目配置，app注册，数据库配置（常做配置）
-    ├── urls.py             // url路径与函数对应关系配置（常做配置）
+    ├── settings.py         // 项目配置文件,app注册,数据库配置（常做配置）
+    ├── urls.py             // 项目路由调度文件,处理url路径与函数对应关系配置（常做配置）
     └── wsgi.py。           // 同步，接收网络请求
   
 ```
@@ -57,6 +57,8 @@ myapp
 ```
 
 ## 编写urls与views中视图函数的对应关系
+**ulrs处理方式一**
+
 打开urls.py文件,先导入views,新增一个url与函数对应
 ```py
 
@@ -67,6 +69,36 @@ from myapp import views
 path('index', views.index),
 
 ```
+
+**urls处理方式二(推荐)**
+- 完整的一个路径可视为在项目中的路径部分与在应用中的路径部分的拼接
+- 给每个APP应用组件配置一个子路由调度urls.py文件
+- 每个应用组件内的路由调度都由子路由调度来处理
+- 总项目路由调度处理路径中不包含应用组件部分的路径,并检查包含应用组件部分的路径,使用include将组件部分发回应用组件使用子路由调度自行处理
+在myapp目录下新增子路由调度urls.py
+```py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+
+```
+修改根项目路由调度urls.py中的路由调度逻辑
+```py
+
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('myapp/', include('myapp.urls')),
+    path('admin/', admin.site.urls),
+]
+
+```
+
 
 回到views.py文件,新增一个刚刚在urls.py中构建对应关系的函数
 ```py
