@@ -36,8 +36,8 @@ python3.9 manage.py runserver 8013
 ## 后台美化
 1.在admin.py后台管理文件中修改默认header与title
 ```py
-admin.AdminSite.site_header = "MangTi's site"
-admin.AdminSite.site_title = "MT's APP"
+admin.AdminSite.site_header = "MyDemo系统"
+admin.AdminSite.site_title = "模型管理"
 ```
 
 
