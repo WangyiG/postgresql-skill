@@ -75,7 +75,8 @@ path('index', views.index),
 - 给每个APP应用组件配置一个子路由调度urls.py文件
 - 每个应用组件内的路由调度都由子路由调度来处理
 - 总项目路由调度处理路径中不包含应用组件部分的路径,并检查包含应用组件部分的路径,使用include将组件部分发回应用组件使用子路由调度自行处理
-在myapp目录下新增子路由调度urls.py
+
+#### 在myapp目录下新增子路由调度urls.py
 ```py
 
 from django.urls import path
@@ -86,7 +87,7 @@ urlpatterns = [
 ]
 
 ```
-修改根项目路由调度urls.py中的路由调度逻辑
+#### 修改根项目路由调度urls.py中的路由调度逻辑
 ```py
 
 from django.contrib import admin
