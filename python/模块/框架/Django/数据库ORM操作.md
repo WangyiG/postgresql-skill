@@ -6,6 +6,8 @@ create database djdemo
 ## 配置postgre数据库
 >Django中使用postgre的第一项准备是安装psycopg2模块,mac下我之前已安装:conda install psycopg2
 
+>修改配置为本地时区,在项目配置文件settings.py中修改TIME_ZONE = 'Asia/Shanghai',USE_TZ = False
+
 1.在项目配置文件settings.py的DATABASES选项下修改配置
 先将默认的sqlite3数据库配置注释掉
 ```py
