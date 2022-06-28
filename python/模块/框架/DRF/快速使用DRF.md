@@ -17,7 +17,7 @@ INSTALLED_APPS = [
      ...,
     'rest_framework',
 ]
-...
+```
 
 ## 创建APP
 切换到项目目录,注意检查是否是drf环境,两种app创建方式
