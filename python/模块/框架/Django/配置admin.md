@@ -23,6 +23,7 @@ from .models import Question
 from .models import Choice
 
 admin.site.register(Question)
+admin.site.register(Choice)
 
 ## 启动项目进入admin后台,使用超级管理员mt,mangti登录
 python3.9 manage.py runserver 8013
