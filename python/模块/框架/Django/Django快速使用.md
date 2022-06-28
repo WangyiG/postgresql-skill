@@ -122,7 +122,7 @@ python3.9 manage.py runserver 8013
 ```
 
 ## 验证
-打开浏览器,进入http://127.0.0.1:8013/index,'页面测试,success!'
+打开浏览器,进入http://127.0.0.1:8013/myapp/index,'页面测试,success!'
 
 
 
