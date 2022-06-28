@@ -14,3 +14,13 @@ conda deactivate drf
 
 // 删除指定虚拟环境
 conda remove -n drf --all
+
+// 查看当前环境中手动安装的包
+pip freeze
+
+// 查看手动安装的包以及当前环境中运行的依赖
+pip list
+
+// 打包
+pip freeze > ./requirements.txt
+切换至txt所在目录,pip install -r requirements.txt
