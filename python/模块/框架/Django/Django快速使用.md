@@ -101,6 +101,7 @@ urlpatterns = [
 ```
 >include函数与path函数介绍
 >path('myapp/', include('myapp.urls')):include一般是在path函数内使用,路径遇到myapp/后,将接在myapp/后的部分交由myapp下的urls处理
+>
 >path(route,view,kwargs,name):route路由交由view函数处理,view函数接收参数kwargs,为url取名,可以方便在模板中引用,允许一次修改就能全局的修改某个url模式
 
 回到views.py文件,新增一个刚刚在urls.py中构建对应关系的函数
