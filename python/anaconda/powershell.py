@@ -25,3 +25,14 @@ pip list
 // 打包
 pip freeze > ./requirements.txt
 切换至txt所在目录,pip install -r requirements.txt
+
+
+// 镜像源
+// 查看当前源
+conda config --show-sources
+
+// 新增源
+conda config --add channels https://pypi.douban.com/anaconda/cloud/conda-forge/
+  
+// 删除所有源  
+conda config --remove-key channels
