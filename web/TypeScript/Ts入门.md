@@ -33,12 +33,13 @@ console.log(sayhello(user));
 ```sh
 tsc hello.ts
 ```
-编译的到一个同名js文件,执行node命令运行该js文件
+编译得到一个同名js文件,执行node命令运行该js文件
 ```sh
 node hello.js // 返回hello,Tom
 ```
-ts会在编译时就进行类型检查,既然编译不过,自然不能运行,诸如以下代码实际根本连编译都不能通过
+ts会在编译时就进行类型检查,既然编译不过,自然不能运行,实际情况是诸如以下代码虽然编译报错,但还是生成了一个同名js文件
 ```ts
+// 学习一下js中的raise Error 语法 : throw new Error()
 function sayhello(person:string){
     if (typeof person === 'string'){
         return 'hello,' + person
@@ -54,6 +55,13 @@ let user1 = 1;
 console.log(sayhello(user0));
 console.log(sayhello(user1));
 ```
+>如果需要在ts编译报错时终止js文件的生成,可以在tsconfig.json中配置onEmitOnError
 
-
+## 配置WebStorm非命令行运行
+1.安装ts—node
+```sh
+npm install -D ts-node
+```
+2.安装Run Configuration for TypeScript插件
+3.右键使用run 
 
