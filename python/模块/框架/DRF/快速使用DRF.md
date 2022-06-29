@@ -4,6 +4,7 @@ sudo conda create -n drf python=3.8 django==3.2.4 djangorestframework psycopg2
 ```
 
 ## 创建dfmdemo项目
+找到刚刚新建的虚拟环境envs/drf下的django-admin启动文件(win下需要使用后缀.exe)执行启动
 ```sh
 /Users/mt/miniforge3/envs/drf/bin/django-admin startproject drfdemo
 ```
