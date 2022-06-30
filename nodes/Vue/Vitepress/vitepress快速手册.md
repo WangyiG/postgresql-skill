@@ -28,13 +28,11 @@ mkdir docs && echo '# Hello VitePress' > docs/index.md
 5.在package.json中添加脚本
 ```json
 {
-  ...
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs"
   },
-  ...
 }
 ```
 6.启动文档站点
@@ -90,7 +88,6 @@ export default {
                     collapsed : false,
                     items : [
                         {text:'数据结构',link:'/Python/数据结构'},
-                        {text:'函数定义',link:'/Python/函数定义'}
                     ]
                 }
             ],
