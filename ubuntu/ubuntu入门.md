@@ -46,9 +46,9 @@ sudo apt -y upgrade
 ```
 
 ## 我的mac上安装conda
-wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2022.05-Linux-aarch64.sh
-bash Anaconda3-2022.05-Linux-aarch64.sh
-注意安装过程中有1步conda init 要yes，配置环境变量
+- wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2022.05-Linux-aarch64.sh
+- bash Anaconda3-2022.05-Linux-aarch64.sh
+- 注意安装过程中有1步conda init 要yes，配置环境变量
 
 ## 安装postgre
 默认用户是postgres
