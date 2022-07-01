@@ -44,6 +44,10 @@ sudo uname --m
 sudo apt update
 sudo apt -y upgrade
 ```
+## 重启系统
+```sh
+sudo reboot
+```
 
 ## 我的mac上安装conda
 - wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2022.05-Linux-aarch64.sh
