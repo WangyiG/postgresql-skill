@@ -44,9 +44,10 @@ sudo uname --m
 sudo apt update
 sudo apt -y upgrade
 ```
-## 重启系统
+## 重启系统,关闭系统
 ```sh
 sudo reboot
+sudo poweroff
 ```
 
 ## 我的mac上安装conda
