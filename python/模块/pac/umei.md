@@ -35,3 +35,30 @@ for i, sub_url in enumerate(sub_urls):
     time.sleep(2)
 print('over')
 ```
+
+## 关于滚动加载
+- 确定滚动加载之后的url
+```py
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://www.umei.cc/e/action/get_img_a.php'
+header = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
+data = {
+        'next': '1',
+        'table':'news',
+        'action': 'getmorenews',
+        'limit': '10',
+        'small_length': '120',
+        'classid': '48'
+    }
+
+def f(n):
+    data['limit'] = n 
+    resp = requests.post(url=url,headers=header,data=data)
+    info = BeautifulSoup(resp.text)
+    res = dict(zip(map(lambda x:x.text,info.find_all('span')),map(lambda x:x.get('src'),info.find_all('img'))))
+    return res   
+
+f(15)
+```
