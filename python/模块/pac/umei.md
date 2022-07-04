@@ -56,7 +56,7 @@ data = {
 def f(n):
     data['limit'] = n 
     resp = requests.post(url=url,headers=header,data=data)
-    info = BeautifulSoup(resp.text)
+    info = BeautifulSoup(resp.text,'lxml')
     res = dict(zip(map(lambda x:x.text,info.find_all('span')),map(lambda x:x.get('src'),info.find_all('img'))))
     return res   
 
