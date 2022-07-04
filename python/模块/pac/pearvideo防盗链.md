@@ -26,7 +26,8 @@ contId = 'cont-'+root_url.split('_')[-1]
 
 # 配置Referer
 header = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Apple\
+                   WebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
     'Referer': root_url
 }
 ```
