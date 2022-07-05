@@ -91,12 +91,12 @@ page.goto("https://playwright.dev")
 context.tracing.stop(path = "trace.zip")
 ```
 2.  查看跟踪
-- 在https://trace.playwright.dev/选择跟踪文件打开
+- 在[gui]('https://trace.playwright.dev/')中选择跟踪文件打开
 - 从终端打开
 ```sh
 playwright show-trace trace.zip
 ```
-4.  使用url远程查看跟踪,比如将trace.zip存放在github上(实测未成功,可能和我地址中文太多有关)
+3. 使用url远程查看跟踪,比如将trace.zip存放在github上(实测未成功,可能和我地址中文太多有关)
 ```sh
 playwright show-trace  https://github.com/trace.zip
 ```
