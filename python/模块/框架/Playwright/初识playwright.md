@@ -80,8 +80,8 @@ playwright.selector(element)      // 为给定元素生成选择器
 一个GUI工具
 
 1. 记录跟踪
-    - 在context实例创建之后page实例创建之前声明要记录跟踪
-    - page实例操作完毕之后,关闭跟踪并导出跟踪文件
+- 在context实例创建之后page实例创建之前声明要记录跟踪
+- page实例操作完毕之后,关闭跟踪并导出跟踪文件
 ```py
 context = browser.new_context()
 // 参数分别为截图,呈现为胶片条,资源显示
@@ -91,12 +91,15 @@ page.goto("https://playwright.dev")
 context.tracing.stop(path = "trace.zip")
 ```
 2.  查看跟踪
-    - 在https://trace.playwright.dev/选择跟踪文件打开
-    - 从终端打开
-    ```sh
-    playwright show-trace trace.zip
-    ```
-4.  
+- 在https://trace.playwright.dev/选择跟踪文件打开
+- 从终端打开
+```sh
+playwright show-trace trace.zip
+```
+4.  使用url远程查看跟踪,比如将trace.zip存放在github上(实测未成功,可能和我地址中文太多有关)
+```sh
+playwright show-trace  https://github.com/trace.zip
+```
 
 
 
