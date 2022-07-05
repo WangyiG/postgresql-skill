@@ -62,3 +62,53 @@ def f(n):
 
 f(15)
 ```
+
+## 异步
+- 准备一个辅助文件funchelp.py
+```py
+import requests
+from bs4 import BeautifulSoup
+from aiohttp import request
+import asyncio
+
+url = 'https://www.umei.cc/e/action/get_img_a.php'
+header = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'}
+data = {
+        'next': '1',
+        'table':'news',
+        'action': 'getmorenews',
+        'limit': '10',
+        'small_length': '120',
+        'classid': '25'
+    }
+
+def get_urls1():
+    data['limit'] = '150'
+    resp = requests.post(url=url,headers=header,data=data)
+    resp.close()
+    info = BeautifulSoup(resp.text,'lxml')
+    urls = list(map(lambda x:x.get('src'),info.find_all('img')))
+    return urls
+
+async def get(url):
+    async with request("GET", url) as response:
+        return await response.content.read()
+```
+- 异步爬取
+```py
+from aiomultiprocess import Pool 
+import asyncio
+import aiofiles
+from aiohttp import request
+from funchelp import get,get_urls
+import uuid
+
+async def main():
+    urls = get_urls()
+    async with Pool() as pool:
+        async for result in pool.map(get, urls):
+            async with aiofiles.open('img/timg/'+str(uuid.uuid4())+'.jpg',mode='wb') as f:
+                await f.write(result)
+
+await main()
+```
