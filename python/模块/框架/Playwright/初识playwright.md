@@ -37,12 +37,14 @@ with sync_playwright() as p:
 ```
 ## Inspector调试
 1.先录制一个脚本inspec.py
+
 ```sh
 // 请在录制过程中多操作几次,不要一会调试时一下就没了,将录制生成的代码复制到inspec.py
 playwright codegen wikipedia.org
 ```
 
 2.进入调试
+
 - 理论上接项目文件完整路径,但我们通常都是在项目目录下操作,这里省略不写了
 - win下powershell
 ```sh
@@ -54,21 +56,24 @@ pytest -s  inspec.py
 PWDEBUG=1 pytest -s myproject.py
 ```
 3.调试
+
 - 单步执行
 - 即将单击的点将在检查的页面上用大红点突出显示
 
 4.除了以上调试方法之外还可以使用page.pause()
+
 - 在page实例创建后的任意位置添加page.pause()
 - 直接运行脚本,会将断点打在page.pause()的位置,即可执行单步调试
 
 5.在调试模式打开时,可以在浏览器的开发者模式console项中使用playwright的api
+
 ```js
 // playwright.$('text=English'),返回<strong>English<strong>
-playwright.$(selector)            // 选择器，返回匹配的元素
-playwright.$$(selector)           // 选择器，返回所有匹配的元素
-playwright.inspect(selector)      // 检查元素，如果开发者工具Elements支持
-playwright.locator(selector)
-playwright.selector(element)
+playwright.$(selector)            // 返回匹配的元素
+playwright.$$(selector)           // 返回所有匹配的元素
+playwright.inspect(selector)      // 检查元素,如果开发者工具Elements支持
+playwright.locator(selector)      // 定位器,使用实际的playwright引擎查询元素
+playwright.selector(element)      // 为给定元素生成选择器
 ```
 
 
