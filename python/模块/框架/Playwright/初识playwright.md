@@ -91,7 +91,7 @@ page.goto("https://playwright.dev")
 context.tracing.stop(path = "trace.zip")
 ```
 2.  查看跟踪
-- 在[gui]('https://trace.playwright.dev/')中选择跟踪文件打开
+- 在[gui](https://trace.playwright.dev/)中选择跟踪文件打开
 - 从终端打开
 ```sh
 playwright show-trace trace.zip
