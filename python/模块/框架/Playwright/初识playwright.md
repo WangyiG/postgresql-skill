@@ -35,7 +35,7 @@ with sync_playwright() as p:
     print(page.title())
     browser.close()
 ```
-## Inspector调试
+## Inspector调试,GUI工具
 1.先录制一个脚本inspec.py
 
 ```sh
@@ -75,6 +75,28 @@ playwright.inspect(selector)      // 检查元素,如果开发者工具Elements�
 playwright.locator(selector)      // 定位器,使用实际的playwright引擎查询元素
 playwright.selector(element)      // 为给定元素生成选择器
 ```
+
+## Trace Viewer跟踪
+一个GUI工具
+
+1. 记录跟踪
+    - 在context实例创建之后page实例创建之前声明要记录跟踪
+    - page实例操作完毕之后,关闭跟踪并导出跟踪文件
+```py
+context = browser.new_context()
+// 参数分别为截图,呈现为胶片条,资源显示
+context.tracing.start(screenshots=True, snapshots=True, sources=True)
+page = context.new_page()
+page.goto("https://playwright.dev")
+context.tracing.stop(path = "trace.zip")
+```
+2.  查看跟踪
+    - 在https://trace.playwright.dev/选择跟踪文件打开
+    - 从终端打开
+    ```sh
+    playwright show-trace trace.zip
+    ```
+4.  
 
 
 
