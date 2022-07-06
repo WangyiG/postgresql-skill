@@ -1,5 +1,5 @@
 # Selectors选择器
-选择器Selectors是用于创建定位器Locators的字符串
+选择器Selectors用于创建定位器Locators的字符串
 
 定位器Locators用于定位元素,确定元素是who之后才能执行相应操作
 ## Text
@@ -39,6 +39,7 @@ page.locator("button:visible").click()
 page.locator("button >> visible=true").click()
 ```
 2.选择包含其它元素的元素
+
 - has用于检索标签属性
 - has_text用于检索html标签所包裹的内容
 - 支持链式定位,在定位器的基础上再次定位locator.locator(selector,\**kwargs)
@@ -54,7 +55,21 @@ page.locator("div", has=page.locator("button.c1"))
 # :has伪类简写
 page.locator("div :has("button.c1")).text_content()
 ```
+3.选择与条件之一匹配的元素
+以逗号分隔的CSS选择器列表,只有满足其一即可匹配
 
+这并不意味着会选择多个元素,因为定位器只会定位在DOM顺序中第一个满足的元素上
+```py
+# log in或sign in一般只会用一个，而我不知道用的是那个 
+page.locator('button:has-text("Log in"), button:has-text("Sign in")').click()
+```
+
+4.XPath并集
+使用管道运算符 | 来指定多个选择器
+```py
+# Waits for either confirmation dialog or load spinner.
+page.locator("//span[contains(@class, 'spinner__loading')]|//div[@id='confirmation']").wait_for()
+```
 
 
 
