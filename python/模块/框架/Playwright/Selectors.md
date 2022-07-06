@@ -70,7 +70,33 @@ page.locator('button:has-text("Log in"), button:has-text("Sign in")').click()
 page.locator("//span[contains(@class, 'spinner__loading')]|//div[@id='confirmation']").wait_for()
 ```
 
+## 高级DOM元素选择
+- 默认情况下css与text会进行深层匹配递归检索,不局限于当前层,当然在当前层匹配到则取当前层
+- 可以使用伪类 :light限制只做当前层检索
+- 不使用伪类的情况下,也可以使用 > 来限制层级,与css中子代与后代选择器相似,playwright中默认支持后代选择, > 限制子代选择 
+```html
+<!--html示例-->
+<article>
+  <div>In the light dom</div>
+  <div slot='myslot'>In the light dom, but goes into the shadow slot</div>
+  #shadow-root
+    <div class='in-the-shadow'>
+      <span class='content'>
+        In the shadow dom
+        #shadow-root
+          <li id='target'>Deep in the shadow</li>
+      </span>
+    </div>
+    <slot name='myslot'></slot>
+</article>
+```
+```py
+# 都只定位<div>In the light dom</div>
+page.locator("article div")
+page.locator(":light(article div)")
 
+
+```
 
 
 
