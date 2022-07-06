@@ -54,6 +54,10 @@ page.locator("button", has_text="Visible").click()
 page.locator("div", has=page.locator("button.c1"))
 # :has伪类简写
 page.locator("div :has("button.c1")).text_content()
+
+# 不是class,id等常用标签属性,比如placeholder标签属性
+page.locator('css=[placeholder="Search GitHub"]').fill('query')
+page.locator('[placeholder="Search GitHub"]').fill('query')
 ```
 3.选择与条件之一匹配的元素
 - 以逗号分隔的CSS选择器列表,只有满足其一即可匹配
@@ -64,6 +68,7 @@ page.locator('button:has-text("Log in"), button:has-text("Sign in")').click()
 ```
 
 4.XPath并集
+- XPath选择一般形如xpath=//html/body,如果使用//或..开头可以省略'xpath='声明,注意：Xpath不支持递归查询，需要一层一层写
 - 使用管道运算符 | 来指定多个选择器
 ```py
 # Waits for either confirmation dialog or load spinner.
@@ -103,10 +108,56 @@ page.locator(":light(article > div)")
 page.locator("article li#target")
 ```
 ## css配合布局进行选择
-- selector:right-of(inner_selector),与内部选择器匹配的元素的左侧垂直位置（是的,不局限于左侧水平位置)再去与外部选择器匹配
-- :left-of,
-- :above,
-- :below,
-- :near,
+- selector:right-of(inner_selector),与内部选择器匹配的元素的左侧任意垂直位置（是的,不局限于右侧水平位置)再去与外部选择器匹配
+- :left-of,左侧
+- :above,上侧
+- :below,下侧
+- :near,周边50px内
+```py
+# Fill an input to the right of "Username".
+page.locator("input:right-of(:text(\"Username\"))").fill("value")
 
+# Click a button near the promo card.
+page.locator("button:near(.promo-card)").click()
+
+# Click the radio input in the list closest to the "Label 3".
+page.locator("[type=radio]:left-of(:text(\"Label 3\"))").first.click()
+```
+## 按标签文本选择元素
+- 对于有label的DOM,如下input控件有label其中文本为Password
+```html
+<label for="password">Password:</label><input id="password" type="password">
+```
+- 可以直接使用标签文本来定位标签
+```py
+# 主要支持click,fill,selectOption等
+page.fill('text=Password', 'secret')
+```
+
+## 选择第n个元素
+1.指定nth，
+- 语法为selector >> nth = n,索引从0开始，支持负值反向索引
+```py
+# Click first button
+page.locator("button >> nth=0").click()
+
+# Click last button
+page.locator("button >> nth=-1").click()
+```
+2.伪类:nth-match
+- 此索引从1开始
+- 与css中nth-child不同，不必要求同级下
+```html
+<section> <button>Buy</button> </section>
+<article><div> <button>Buy</button> </div></article>
+<div><div> <button>Buy</button> </div></div>
+```
+选择第三个
+```py
+# Click the third "Buy" button
+page.locator(":nth-match(:text('Buy'), 3)").click()
+
+# Wait until all three buttons are visible
+page.locator(":nth-match(:text('Buy'), 3)").wait_for()
+```
 
