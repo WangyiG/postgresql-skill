@@ -1,6 +1,6 @@
 ## DFM安装
 ```sh
-sudo conda create -n drf python=3.8 django==3.2.4 djangorestframework psycopg2
+conda create -n drf python=3.8 django==3.2.4 djangorestframework psycopg2
 ```
 
 ## 创建dfmdemo项目
