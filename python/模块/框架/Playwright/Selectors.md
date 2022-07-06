@@ -56,16 +56,15 @@ page.locator("div", has=page.locator("button.c1"))
 page.locator("div :has("button.c1")).text_content()
 ```
 3.选择与条件之一匹配的元素
-以逗号分隔的CSS选择器列表,只有满足其一即可匹配
-
-这并不意味着会选择多个元素,因为定位器只会定位在DOM顺序中第一个满足的元素上
+- 以逗号分隔的CSS选择器列表,只有满足其一即可匹配
+- 这并不意味着会选择多个元素,因为定位器只会定位在DOM顺序中第一个满足的元素上
 ```py
 # log in或sign in一般只会用一个，而我不知道用的是那个 
 page.locator('button:has-text("Log in"), button:has-text("Sign in")').click()
 ```
 
 4.XPath并集
-使用管道运算符 | 来指定多个选择器
+- 使用管道运算符 | 来指定多个选择器
 ```py
 # Waits for either confirmation dialog or load spinner.
 page.locator("//span[contains(@class, 'spinner__loading')]|//div[@id='confirmation']").wait_for()
