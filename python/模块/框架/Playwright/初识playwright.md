@@ -1,16 +1,11 @@
 ## 安装
-- pip
+- 创建虚拟环境并安装
 ```sh
-pip install --upgrade pip
-pip install playwright
-playwright install
-```
-- conda
-```sh
-conda config --add channels conda-forge
-conda config --add channels microsoft
-conda install playwright
-playwright install
+conda create -n pw python=3.8
+conda activate pw
+pip install playwright -i https://pypi.tuna.tsinghua.edu.cn/simple
+// 该步可vpn，默认装4个浏览器依赖，这里只装1个chromium
+playwright install chromium
 ```
 ## 录制脚本
 - 并生成代码
