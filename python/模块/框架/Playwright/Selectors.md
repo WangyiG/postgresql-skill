@@ -95,8 +95,18 @@ page.locator("//span[contains(@class, 'spinner__loading')]|//div[@id='confirmati
 page.locator("article div")
 page.locator(":light(article div)")
 
+# 都定位到<article>下的所有div
+page.locator("article > div")
+page.locator(":light(article > div)")
 
+# 递归检索,匹配到article内li标签且li标签id属性为target
+page.locator("article li#target")
 ```
-
+## css配合布局进行选择
+- selector:right-of(inner_selector),与内部选择器匹配的元素的左侧垂直位置（是的,不局限于左侧水平位置)再去与外部选择器匹配
+- :left-of,
+- :above,
+- :below,
+- :near,
 
 
