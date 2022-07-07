@@ -27,9 +27,8 @@ urls
 ```py
 resp = requests.get(urls[3])
 obj = re.compile('var deskPicArr.*?=(?P<page>.*?);',re.S)
-res = obj.search(resp.text)
+demo_str = obj.search(resp.text).group('page')
 resp.close()
-demo_str = res.group('page')
 demo = json.loads(demo_str)
 target = [item['imgsrc'].replace('##SIZE##',item['oriSize']) for item in demo['list']]
 target
