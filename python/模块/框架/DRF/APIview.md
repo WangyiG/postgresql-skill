@@ -20,7 +20,7 @@ class Book(models.Model):
 ```
 ## 创建序列化器
 - 在app目录下新建serializer.py
-- post请求要重新create方法,put请求要重新update方法,目的是指定模型
+- post请求要重写create方法,put请求要重写update方法,目的是指定模型
 ```py
 from rest_framework import serializers
 from .models import  Book
@@ -38,7 +38,7 @@ class Bookserializer(serializers.Serializer):
 ```
 
 ## 配置视图类
-- 防止请求冲突,pk请求，get1个,put,patch,delete应该再建一个视图类
+- 防止请求冲突,pk请求，get1个,put,patch,delete应该再新建一个视图类
 ```py
 from rest_framework.views import APIView
 from rest_framework.response import Response
