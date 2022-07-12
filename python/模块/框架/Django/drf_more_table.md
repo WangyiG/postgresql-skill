@@ -88,13 +88,15 @@ class BookSerializer(serializers.ModelSerializer):
         }
 
     # publish与authors都是id而非具体信息,定制具体信息字段并注册到fields中
+    # 也可以去表模型中@property定制并注册到fields中,这里直接在序列化器中定制 
+    
     publish_detail = serializers.SerializerMethodField()
     authors_detail = serializers.SerializerMethodField()
 
-    @staticmethod
-    def get_publish_detail(obj):
+    def get_publish_detail(self,obj):
         return {'name': obj.publish.name, 'city': obj.publish.city,'email':obj.publish.email}
-
+    
+    # 使用静态方法定义,不管如何定义,都是通过getattr反射找get_定制字段名
     @staticmethod
     def get_authors_detail(obj):
         author_list = []
