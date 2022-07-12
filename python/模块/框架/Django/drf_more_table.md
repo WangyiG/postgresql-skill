@@ -9,7 +9,7 @@ django-admin startproject drf_more_table
 cd drf_more_table
 python manage.py startapp demo 
 ```
-3. 配置setting.py,修改本地化
+3. 配置setting.py
 ```py
 # 注册rest_framework与app
 INSTALLED_APPS = [
