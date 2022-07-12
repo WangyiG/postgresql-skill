@@ -125,6 +125,7 @@ class PublishSerializer(serializers.ModelSerializer):
         fields = '__all__'
 ```
 ## 配置视图类
+> 关于post新增publish与authors应该传递id值{'publish':1,'authors':[1,2]},因为前端是通过下拉菜单填入,而下拉菜单选项绑定的值应为id
 ```py
 from rest_framework.views import APIView
 from .models import *
