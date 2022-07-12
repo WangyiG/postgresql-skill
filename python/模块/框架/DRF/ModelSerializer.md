@@ -53,7 +53,17 @@ class Book_V1_Serializer(serializers.ModelSerializer):
         model = Book_v1
         # 注册需要序列化的字段,表模型的property属性字段也可以注册
         # fields = '__all__'  指定所有字段都序列化包括id,但不包括property属性字段
-        fields = ['id','name','price','author','price_info'] # 该用法id也需要注册才可序列化
+        fields = ['id','name','price','author','price_info','price_new'] # 该用法id需要注册才可序列化
+        # 在元类Meta中,支持扩展字段参数
+        extra_kwargs = {
+            'name':{'write_only':True}
+        }
+
+
+    # 也可以使用序列化方法创建新序列化字段,但该新增字段也一定要在Meta元类的fields中注册
+    price_new = serializers.SerializerMethodField()
+    def get_price_new(self,obj):
+        return f'8折后价格为:{obj.price*0.8}'
 
 
     # 在序列化器中新建局部钩子验证validate_字段名指定字段
@@ -70,6 +80,7 @@ class Book_V1_Serializer(serializers.ModelSerializer):
             raise ValidationError('书名不应与作者名相同')
         else:
             return attrs
+
 ```
 ## 配置视图类
 ```py
