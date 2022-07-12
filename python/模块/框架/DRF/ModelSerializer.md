@@ -61,6 +61,7 @@ class Book_V1_Serializer(serializers.ModelSerializer):
 
 
     # 也可以使用序列化方法创建新序列化字段,但该新增字段也一定要在Meta元类的fields中注册
+    # 要求函数名必须是get_新字段名
     price_new = serializers.SerializerMethodField()
     def get_price_new(self,obj):
         return f'8折后价格为:{obj.price*0.8}'
