@@ -41,7 +41,7 @@ USE_TZ = False
 ```py
 from django.db import models
 
-# 创建4个模型,但因为Book的authors字段ManyToMany关联到Author,会自动多创建一个demo_book_authors表
+# 创建4个模型,但因为Book的authors字段ManyToMany关联到Author,会自动多创建一个demo_book_authors中间表
 class Book(models.Model):
     name = models.CharField(max_length=32)
     price = models.DecimalField(max_digits=5, decimal_places=2)
