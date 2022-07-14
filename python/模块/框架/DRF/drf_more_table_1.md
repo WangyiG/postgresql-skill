@@ -112,6 +112,25 @@ class PublishSerializer(serializers.ModelSerializer):
         model = Publish
         fields = '__all__'
 ```
+## 扩展,多表写入
+- 有一个问题author表与author_detail表数据库中分离,但用户不知道,新增author时应当一次提交author表字段与author_detail表字段
+- 重写反序列化字段并重写create与update方法
+```py
+class AuthorSerializer(serializers.ModelSerializer):
+          class Meta:
+                    model = Author
+                    # 重点在于telephone与addr不是author表字段而是author_detail表字段
+                    fields = ['name','age','telephone','addr']
+          telephone = serializers.BigIntegerField(write_onle = True)
+          addr = serializers.CharField(write_onle = True)
+          # 为了一次提交分别存2个表
+          def create(self,validated_data):
+                    # 注意有先后顺序
+                    detail = AuthorDetail.objects.create(telephone = validated_data.get('telephone'),addr = validated_data.get('addr'))
+                    author = Author.objects.create(author_detail = detail,name = validated_data.get('name'),age = validated_data.get('age'))
+                    return author
+```
+
 ## 配置视图类
 ```py
 from rest_framework.viewsets import ModelViewSet
