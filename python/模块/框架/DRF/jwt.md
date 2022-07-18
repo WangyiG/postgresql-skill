@@ -116,7 +116,7 @@ class BookView1(ViewSetMixin, ListAPIView):
     permission_classes = [IsAuthenticated, ]
 
 ```
-- 接口测试:注意**要在Headers中**传参,key是**Authorization**，value是**'jwt'+空格+登陆返回的token串**
+- 接口测试:注意**要在Headers中**传参,key是**Authorization**，value是**jwt+空格+登陆返回的token串**
 ```sh
 // 接口地址,注意是在Headers中传参
 http://127.0.0.1:8000/filter_app/books1/
