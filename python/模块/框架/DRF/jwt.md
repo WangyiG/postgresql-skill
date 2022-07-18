@@ -1,19 +1,19 @@
 ## 前情
 #### cookie、session、token区别的浅薄理解
-###### cookie
+##### cookie
   - 业务逻辑:登录后服务端生成cookie返回给浏览器,浏览器再次请求时携带cookie,服务端验证cookie
   - 临时或永久保存在客户端
   - 既可以记录用户信息也可以记录商品信息
   - 服务器需要维护一张cookie表
   
-###### session
+##### session
   - 业务逻辑:登录后服务端生成session,将sessionid给cookie返回给浏览器,浏览器再次请求时携带cookie,服务端根据cookie中的sessionid去找session
   - 临时保存在服务端
   - sessionid通过cookie给到浏览器
   - 此时cookie只需要去记录用户信息(大大减少了cookie的体积),请求时将cookie传给服务端后,在服务端中关联用户的商品信息
   - 服务器需要维护一张session表
 
-###### token
+##### token
   - 业务逻辑:登录后服务端根据算法生成一个token,通过cookie返回给浏览器,浏览器再次请求时携带含token的cookie,服务端验证token并直接取出用户id
   - token的三段式组成:header-指定签名算法等通用信息;payload-指定用户id,过期时间等非敏感数据;Signature-签名,server根据header的签名算法与服务端的密钥对head+payload生成签名
   - 服务端不需要维护token表,只需要维护一个token函数,作用是检验请求携带的token是否合法以及返回用户id去得到用户id对应的商品信息
