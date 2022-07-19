@@ -121,7 +121,68 @@ class BookView1(ViewSetMixin, ListAPIView):
 // 接口地址,注意是在Headers中传参
 http://127.0.0.1:8000/filter_app/books1/
 ```
+#### 定制jwt的返回格式
+- 新建utils.py,改写一个jwt返回函数
+```py
+def jwt_response_payload_handler(token, user=None, request=None):
+    return {
+        'code': 100,
+        'msg': '登陆成功',
+        'token': token,
+        'username': user.username
+    }
+```
+- 在setting中配置改写后的返回函数(修改默认JWT_RESPONSE_PAYLOAD_HANDLER配置)
+```py
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'filter_app.utils.jwt_response_payload_handler',
+}
+```
+- token测试,定制之后已经可以post传参不必headers那么复杂的传参了
+```sh
+// body中传username:mt password:mt
+http://127.0.0.1:8000/filter_app/tokens/
+```
+#### jwt签发认证源码粗识
+```py
+# 签发
+# 入口:子urls中的obtain_jwt_token
+# ObtainJSONWebToken.as_view() -->很明显ObtainJSONWebToken是一个视图(从obtain_jwt_token导入的from也可以看出来)
+# ObtainJSONWebToken -->1.继承了一个post方法:需携带username与password访问 2.用到序列化类serializer_class = JSONWebTokenSerializer
+# 1.post方法中:response_data = jwt_response_payload_handler(token, user, request)此为默认返回,所以我们改写wt_response_payload_handler
+# 2.JSONWebTokenSerializer中validate全局钩子获取当前用户和签发token -->后面自定义user表token参照于此
 
+# 认证
+# 入口views下JSONWebTokenAuthentication
+# 其父类中重写了authenticate方法
+    def authenticate(self, request):
+    
+        # request可以取出前端传人的数据
+        # 还记得之前在Headers中传参value格式是jwt+空格+token串,这里split取出token串
+        jwt_value = self.get_jwt_value(request)
+        
+        # 如果没有传token,即jwt_value为None,直接返回了None跳出了认证
+        # 这也是前面为什么认证必须配一个权限类的原因,如果没传token不允许校验,要求必须传token
+        if jwt_value is None:
+            return None
+        
+        
+        try:
+            payload = jwt_decode_handler(jwt_value)          # 验证签名,获取的token签名与根据token头+token荷载+密钥加密算法得到的token签名是否一致
+        except jwt.ExpiredSignature:
+            msg = _('Signature has expired.')                # token是否过期
+            raise exceptions.AuthenticationFailed(msg)
+        except jwt.DecodeError:
+            msg = _('Error decoding signature.')             # token是否被篡改
+            raise exceptions.AuthenticationFailed(msg)
+        except jwt.InvalidTokenError:                        # 其它不知名错误
+            raise exceptions.AuthenticationFailed()
+
+        user = self.authenticate_credentials(payload)        # 从荷载中获取用户信息
+
+        return (user, jwt_value)
+
+```
 
 
 
