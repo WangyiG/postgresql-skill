@@ -16,7 +16,7 @@
   5. 服务器需要维护一张session表
 
 #### token
-
+计算代替存储
   1. 业务逻辑:登录后服务端根据算法生成一个token,通过cookie返回给浏览器,浏览器再次请求时携带含token的cookie,服务端验证token
   2. json web token的三段式组成:
      - header:头,指定签名算法等通用信息
