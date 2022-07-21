@@ -219,7 +219,7 @@ class UserJwtView(ViewSetMixin, APIView):
             # 通过荷载得到token
             token = jwt_encode_handler(payload)
 
-            return Response({'code': 101, 'msg': '登陆成功', 'token': token, 'username': user.password})
+            return Response({'code': 100, 'msg': '登陆成功', 'token': token, 'username': user.username})
         else:
             return Response({'code': 101, 'msg': '用户名或密码错误'})
 ```
