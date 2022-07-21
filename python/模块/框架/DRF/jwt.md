@@ -183,8 +183,65 @@ http://127.0.0.1:8000/filter_app/tokens/
         return (user, jwt_value)
 
 ```
+#### 自定义user表签发token
+- models中增加User模型并迁移激活
+```py
+class User(models.Model):
+    username = models.CharField(max_length=32)
+    password = models.CharField(max_length=32)
+```
+```sh
+python manage.py makemigrations
+python manage.py migrate  
+```
+- 新增视图类签发token
+```py
+from .models import Book, User
+from rest_framework.viewsets import ViewSetMixin
+from rest_framework.views import APIView
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework_jwt.settings import api_settings
 
+class UserJwtView(ViewSetMixin, APIView):
 
+    @action(methods=['POST'], detail=False)
+    def login(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = User.objects.filter(username=username, password=password).first()
+        if user:
+            # 签发token
+            jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+            jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+            # 得到荷载字典
+            payload = jwt_payload_handler(user)
+            # 通过荷载得到token
+            token = jwt_encode_handler(payload)
+
+            return Response({'code': 101, 'msg': '登陆成功', 'token': token, 'username': user.password})
+        else:
+            return Response({'code': 101, 'msg': '用户名或密码错误'})
+```
+- 参照上文定制jwt返回格式设置(重要)
+- 配置路由
+```py
+from django.urls import path, include
+from .views import UserJwtView
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('user', UserJwtView, 'user')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+```
+- 接口地址
+```sh
+// post请求带username和password,user是路由中设置，login来自action装饰的login函数,action指定的method是post
+http://127.0.0.1:8000/filter_app/user/login/
+```
 
 
 
