@@ -183,7 +183,7 @@ http://127.0.0.1:8000/filter_app/tokens/
         return (user, jwt_value)
 
 ```
-#### 自定义user表签发token
+#### 自定义user表签发token1-在视图类中签发
 - models中增加User模型并迁移激活
 ```py
 class User(models.Model):
@@ -223,7 +223,7 @@ class UserJwtView(ViewSetMixin, APIView):
         else:
             return Response({'code': 101, 'msg': '用户名或密码错误'})
 ```
-- 参照上文定制jwt返回格式设置(重要)
+- 无需定制jwt返回格式设置
 - 配置路由
 ```py
 from django.urls import path, include
@@ -241,6 +241,124 @@ urlpatterns = [
 ```sh
 // post请求带username和password,user是路由中设置，login来自action装饰的login函数,action指定的method是post
 http://127.0.0.1:8000/filter_app/user/login/
+```
+#### 自定义user表签发token2-在序列化器类中签发
+- 区别:在视图类中签发时,不合法的输入也要去数据库中查一下,在序列化器中签发,利用反序列化的校验(字段,局部钩子,全局钩子)来拦截不合法输入
+- 这里新建一个jwtapp演示
+- 安装第三方jwt插件
+```sh
+pip install djangorestframework-jwt
+```
+- 新建jwtapp
+```sh
+django-admin startapp jwtapp
+```
+- 自定义签发自定义了返回格式,无需新建utils.py定制jwt的返回格式
+- 配置settings
+```py
+# 注册jwtapp
+INSTALLED_APPS = [
+     ...,
+    'rest_framework',
+    'demo.apps.DemoConfig',
+    'jwtapp',
+]
+```
+- models中增加User模型并迁移激活
+```py
+class User(models.Model):
+    username = models.CharField(max_length=32)
+    password = models.CharField(max_length=32)
+```
+```sh
+python manage.py makemigrations
+python manage.py migrate  
+```
+- 新建序列化器类serializer.py
+```py
+from rest_framework import serializers
+from rest_framework_jwt.settings import api_settings
+from rest_framework.exceptions import ValidationError
+from .models import User
+
+
+# 只用于反序列化,利用它的校验功能,但不保存
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+    def validate(self, attrs):
+        # 全局钩子中写签发token,一旦签发成功,生成context返回给视图类调用
+        # attrs是反序列化字段校验之后的数据
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        # 签发token逻辑
+        user = User.objects.filter(username=username, password=password).first()
+        if user:
+            # 签发token
+            jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+            jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+            # 得到荷载字典
+            payload = jwt_payload_handler(user)
+            # 通过荷载得到token
+            token = jwt_encode_handler(payload)
+
+            # 生成context,用于给views调用
+            self.context['token'] = token
+            self.context['username'] = user.username
+
+        else:
+            raise ValidationError('用户名或密码错误')
+        return attrs
+```
+- 配置视图类
+```py
+from rest_framework.viewsets import ViewSetMixin
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from .serializer import UserSerializer
+
+# 把大部分工作放在序列号器中处理
+class UserView(ViewSetMixin,APIView):
+    @action(methods=['POST'],detail=False)
+    def login(self,request):
+        ser = UserSerializer(data=request.data)
+        # 做字段校验,局部钩子,全局钩子
+        if ser.is_valid():
+            # 在序列化器中生成context
+            token = ser.context.get('token')
+            username = ser.context.get('username')
+            return Response({'code':100,'msg':'登录成功','token':token,'username':username})
+        else:
+            return Response({'code':101,'msg':ser.errors})
+```
+- 配置路由
+```py
+# 主路由
+from django.urls import path,include
+
+urlpatterns = [
+    path('jwtapp/',include('jwtapp.urls')),
+]
+# 子路由
+from django.urls import path,include
+from rest_framework.routers import DefaultRouter
+from .views import UserView
+
+router = DefaultRouter()
+router.register('jwt',UserView,'jwt')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+```
+- 运行项目测试API
+```py
+// POST方法,body中携带username与password,测试地址:http://127.0.0.1:8000/jwtapp/jwt/login/
+python manage.py runserver
 ```
 
 
