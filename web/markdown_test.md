@@ -85,7 +85,7 @@
 ### 个人信息
 ::: tip INFO
 
-+ :guardswoman:&ensp;&ensp;姓&ensp;&ensp;&ensp;名:&ensp;&ensp;&ensp;**<font> 王&ensp;&ensp;轶</font>**
++ :guardswoman:&ensp;&ensp;姓&ensp;&ensp;&ensp;名:&ensp;&ensp;&ensp;**<font> 王&ensp;&ensp;轶</font>** <img src="/public/wy.JPG" width="90" align='right' border=2px hspace=50 vspace=0 />
 + :date:&ensp;&ensp;出&ensp;&ensp;&ensp;生:&ensp;&ensp;&ensp;**1990-08-28**
 + :iphone:&ensp;&ensp;手&ensp;&ensp;&ensp;机:&ensp;&ensp;&ensp;**13915056010**
 + :mailbox_with_mail:&ensp;&ensp;邮&ensp;&ensp;&ensp;箱:&ensp;&ensp;&ensp;<a style="text-decoration: none">wangyi571001@outlook.com</a>
