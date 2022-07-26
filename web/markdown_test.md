@@ -2,7 +2,7 @@
 
 ### 前端开发工程师
 
-+ :e-mail: **邮&ensp;&ensp;&ensp;&ensp;箱：** <font color="#4ea1db">254xxx512@qq.com</font>      <img src="https://img-blog.csdnimg.cn/4e998997c23846f997560287de604f67.png" width="30" align='left'/>
++ :e-mail: **邮&ensp;&ensp;&ensp;&ensp;箱：** <font color="#4ea1db">254xxx512@qq.com</font>      <img src="https://img-blog.csdnimg.cn/4e998997c23846f997560287de604f67.png" width="30" align='right'/>
 + :phone: **手&ensp;机&ensp;号：** 187xxxxxxxx
 + :alarm_clock: **工作年限：** 2年
 
