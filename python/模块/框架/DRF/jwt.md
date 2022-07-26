@@ -360,7 +360,77 @@ urlpatterns = [
 // POST方法,body中携带username与password,测试地址:http://127.0.0.1:8000/jwtapp/jwt/login/
 python manage.py runserver
 ```
+#### 自定义签发jwt的认证
+- 新建auth.py重新认证类
+```py
+from rest_framework.authentication import BaseAuthentication
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework_jwt.settings import api_settings
+from rest_framework import exceptions
+from .models import User
+import jwt
 
+
+# 继承BaseAuthentication
+# 重写authenticate在其中做jwt认证
+class JWTAuthentication(BaseAuthentication):
+    def authenticate(self, request):
+        # 取出token,自定义token在请求地址还是请求头中传递
+        # token = request.query_params.get('token')
+        # 请求头所有信息都在META字典中,key统一变成全部为HTTP_KEY
+        jwt_value = request.META.get('HTTP_TOKEN')
+        jwt_decode_handler = api_settings.JWT_DECODE_HANDLER
+
+        # 验证token,是否过期,是否被篡改(抄源码的,在JSONWebTokenAuthentication父类的authenticate中)
+        try:
+            payload = jwt_decode_handler(jwt_value)
+        except jwt.ExpiredSignature:
+            msg = '签名过期'
+            raise exceptions.AuthenticationFailed(msg)
+        except jwt.DecodeError:
+            msg = '签名被篡改'
+            raise exceptions.AuthenticationFailed(msg)
+        except jwt.InvalidTokenError:
+            raise exceptions.AuthenticationFailed('未知错误')
+
+        # 通过荷载获取当前登录用户
+        user = User.objects.filter(pk=payload['user_id']).first()
+        return (user, jwt_value)
+```
+- 配置一个需要携带jwt才能访问的视图
+```py
+from rest_framework.views import APIView
+from .auth import JWTAuthentication
+from rest_framework.response import Response
+
+class BookView(APIView):
+    # 配置自定义jwt认证
+    authentication_classes = [JWTAuthentication,]
+    def get(self,request):
+        return Response('所有图书')
+```
+- 配置子路由
+```py
+from django.urls import path,include
+from rest_framework.routers import DefaultRouter
+from .views import UserView,BookView
+
+
+router = DefaultRouter()
+router.register('jwt',UserView,'jwt')
+
+urlpatterns = [
+    path('', include(router.urls)),
+    path('books/', BookView.as_view()),
+]
+```
+- 运行项目并测试API
+```sh
+conda activate drfts
+// 先登录得到token,http://127.0.0.1:8000/jwtapp/jwt/login/,POST请求body中带username与password
+// 携带token访问book视图,http://127.0.0.1:8000/jwtapp/books/,GET请求headers中带token(认证中取token是从请求头中取的,所以这里要在headers中携带)
+python manage.py runserver
+```
 
 
 
