@@ -93,7 +93,6 @@ gittest
 4. 其余按默认设置
 ```
 #### 将本地项目推送到远程仓库
-```md
 1. 在项目根目录下配置.gitignore文件配置忽略推送
 ```sh
 # mac下shift+command+.查看隐藏文件
@@ -126,10 +125,8 @@ git push gt master
 ```sh
 // 刷新远程仓库发现.gitignore生效了,需要注意的应该在其中继续忽略.DS_Store(mac系统生成的隐藏文件)
 ```
-```
 
 #### 从远程仓库拉取项目
-```md
 1. 新建本地目录并切换进入
 ```sh
 mkdir git_pull_test
@@ -145,7 +142,6 @@ https://gitee.com/mangti/git_test.git
 git clone https://gitee.com/mangti/git_test.git
 ```
 5. 验证:成功
-```
 
 
 
