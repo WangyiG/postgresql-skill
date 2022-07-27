@@ -57,7 +57,45 @@ git push -f https://gitee.com/mangti/docs.git master:gh-pages
 // git pull <远程主机名> <远程分支名>:<本地分支名>,-f表示强制拉取
 ```
 #### gitee
-
+- 创建测试目录结构如下
+```sh
+gittest
+├── app1
+│   ├── a1.txt
+│   ├── b1.txt
+│   ├── c1.txt
+│   └── migrations
+│       ├── __init__.py
+│       ├── a1.py
+│       └── b1.py
+├── app2
+│   ├── a2.txt
+│   ├── b2.txt
+│   ├── c2.txt
+│   └── migrations
+│       ├── __init__.py
+│       ├── a2.py
+│       └── b2.py
+└── app3
+    ├── a3.txt
+    ├── b3.txt
+    ├── c3.txt
+    └── migrations
+        ├── __init__.py
+        ├── a3.py
+        └── b3.py
+```
+- 在自己的gitee账户中创建远程仓库
+```md
+1. 配置仓库名称,尽量与项目一致,并对仓库进行描述
+2. 配置路径,一般根据仓库名称自动生成
+3. 配置仓库私有还是开源,20220727日开源好像得先配置私有,仓库创建之后再修改为公开
+4. 其余按默认设置
+```
+- 将本地项目推送到远程仓库
+```md
+1. 在项目根目录下配置.gitignore文件配置忽略推送
+```
 
 
 
