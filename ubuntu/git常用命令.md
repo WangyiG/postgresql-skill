@@ -142,7 +142,7 @@ https://gitee.com/mangti/git_test.git
 git clone https://gitee.com/mangti/git_test.git
 ```
 5. 验证:成功
-
+6. 记得在管理中修改仓库开源
 
 
 
