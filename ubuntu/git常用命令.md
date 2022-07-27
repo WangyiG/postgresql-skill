@@ -132,7 +132,7 @@ git push gt master
 mkdir git_pull_test
 cd git_pull_test
 ```
-2. 在远程仓库中点击克隆/下载,得到https地址
+2. 在远程仓库中点击克隆/下载,获取远程仓库项目https地址
 ```sh
 https://gitee.com/mangti/git_test.git
 ```
