@@ -92,9 +92,57 @@ gittest
 3. 配置仓库私有还是开源,20220727日开源好像得先配置私有,仓库创建之后再修改为公开
 4. 其余按默认设置
 ```
-- 将本地项目推送到远程仓库
+#### 将本地项目推送到远程仓库
 ```md
 1. 在项目根目录下配置.gitignore文件配置忽略推送
+```sh
+# mac下shift+command+.查看隐藏文件
+
+# 忽略所有app下migrations中的非init文件
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# 写要忽略的部分,如下则a开头的只有a3,b开头的只有b1
+a[12].txt
+B[23].txt
+```
+2. 本地操作:init初始化项目,add将项目文件添加至暂存区,commit提交(-m:提交注释)
+```sh
+// 项目根目录下
+git init
+git add .
+git commit -m 'first commit'
+```
+3. 推送:push 远程仓库https+分支
+```sh
+// 给远程仓库地址(gitee新建仓库中给出的https地址)创建别名为gt
+git remote add gt https://gitee.com/mangti/git_test.git
+// 推送到别名为gt的地址+分支
+git push gt master
+```
+4. 反馈
+```sh
+// 刷新远程仓库发现.gitignore生效了,需要注意的应该在其中继续忽略.DS_Store(mac系统生成的隐藏文件)
+```
+```
+
+#### 从远程仓库拉取项目
+```md
+1. 新建本地目录并切换进入
+```sh
+mkdir git_pull_test
+cd git_pull_test
+```
+2. 在远程仓库中点击克隆/下载,得到https地址
+```sh
+https://gitee.com/mangti/git_test.git
+```
+4. 拉取项目
+```sh
+// 注意:上文中gt别名拉取报错了
+git clone https://gitee.com/mangti/git_test.git
+```
+5. 验证:成功
 ```
 
 
