@@ -34,9 +34,6 @@ weighted_avreaged[i] = (1-α) * weighted_average[i-1] + α * arg[i]
 |---|---|---|---|
 |com|float|可选|根据质心指定衰减，α=1/(1+com),其中com ≥ 0|
 |span|float|可选|根据范围指定衰减，α=2/(span+1), 其中span ≥ 1|
-
-
-
 |halflife|float|可选|根据半衰期指定衰减|α=1−exp(log(0.5)/halflife), 其中halflife > 0｜
 |alpha|float|可选|指定平滑系数α，其中0<α≤1｜
 |min_periods|int|默认为0|窗口中具有值的最小观察数(否则结果为NA)｜
