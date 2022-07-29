@@ -15,6 +15,7 @@ ema进行滑动平均填充
 - ewm(com=None, span=None, halflife=None, alpha=None, min_periods=0, adjust=True, ignore_na=False, axis=0, times=None, method='single')
 - 参数解析：
 
+
 ｜参数｜类型｜可选或有默认值｜说明｜
 ｜---｜---｜---｜---｜
 ｜com｜float｜可选｜根据质心指定衰减，α=1/(1+com),其中com ≥ 0｜
@@ -26,6 +27,7 @@ ema进行滑动平均填充
 |ignore_na|bool|默认为False|权重基于绝对值位置,如果为True则权重基于相对值位置|
 |axis|{0或者'index'，1或‘columns’}|默认为0|0标识行，1标识列|
 |method|single或table|默认为single|单轴或整表滚动,仅在指定engine='numba'时实现且仅适用于mean()|
+
 
 - 必须在质心(com)、跨度(span)、半衰期(half-life)和alpha中选择一个来指定衰减系数α
 - 衰减系数α确定后,通过adjust配置加权平均值的计算方式
