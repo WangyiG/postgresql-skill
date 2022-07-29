@@ -19,7 +19,7 @@ ema进行滑动平均填充
 |---|---|---|---|
 |com|float|可选|根据质心指定衰减,α=1/(1+com),其中com ≥ 0|
 |span|float|可选|根据范围指定衰减,α=2/(span+1),其中span ≥ 1|
-|halflife|float|可选|根据半衰期指定衰减|α=1−exp(log(0.5)/halflife),其中halflife > 0｜
+|halflife|float|可选|根据半衰期指定衰减|α=1−exp(log(0.5)/halflife),其中halflife>0,仅适用于 mean()且搭配times参数|
 |alpha|float|可选|指定平滑系数α,其中0<α≤1｜
 |min_periods|int|默认为0|窗口中具有值的最小观察数(否则结果为NA)｜
 |adjust|bool|默认为True|除以开始阶段的衰减调整因子,以解释相对权重的不平衡(将EWMA视为移动平均线)|
