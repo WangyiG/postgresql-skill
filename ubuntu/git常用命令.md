@@ -306,6 +306,33 @@ git log
 // 分支创建合并等功能在...中,分支切换点击左下角当前分支
 ```
 
+#### 实践
+- 在gitee上创建仓库pc_work,获取https远程地址
+```sh
+https://gitee.com/mangti/pc_work.git
+```
+- 创建本地工作区并push至gitee仓库
+```sh
+mkdir pc_work
+cd pc_work
+echo "## readme" > readme.md
+git init
+git branch master
+git checkout master  
+git commit -a -m '测试1'
+git status
+git remote add gitee https://gitee.com/mangti/pc_work.git
+git remote -v
+git push gitee
+```
+- 在gitee上给readme新增内容:测试2,pull到本地
+```sh
+// 注意远程仓库与分支的连接方式,diff需要比较具体分支所以是/
+git fetch gitee master
+git diff gitee/master
+git pull gitee master
+git log
+```
 
 
 
