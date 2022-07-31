@@ -82,7 +82,7 @@ echo "test1.md" > .gitignore
 ```
 
 
-## info 分支逻辑
+## git分支
 #### 1.git branch 分支
 - 创建的新分支会以主分支创建副本
 - 与git config类似,带分支名则是新建或修改,不带则是查看分支信息
