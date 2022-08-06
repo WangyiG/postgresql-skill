@@ -28,6 +28,22 @@ nx.draw(G, with_labels=True,edge_color='black')
 nx.draw_networkx_edge_labels(G,pos,font_color='r',edge_labels= nx.get_edge_attributes(G, 'length'),rotate=True)
 plt.show()
 
+# 一个演示
+df = pd.DataFrame({'begin':list('aabbbccccddddeef'),'end':list('bcacdabdebcefcdd'),'len':[5,1,5,2,1,1,2,4,8,1,4,3,6,8,3,6]})
+
+fig,ax = plt.subplots(dpi=300)
+
+G = nx.from_pandas_edgelist(df,source='begin',target='end',edge_attr='len')
+pos = nx.kamada_kawai_layout(G)
+nx.draw_networkx_edges(G,pos=pos)
+nx.draw_networkx_nodes(G,pos=pos)
+nx.draw_networkx_labels(G,pos=pos)
+nx.draw_networkx_edge_labels(G,pos=pos,font_color='r',edge_labels=nx.get_edge_attributes(G,'len'),label_pos=0.5,rotate=False)
+
+plt.show()
+
+nx.shortest_path_length(G,source='a',target='d',weight='len'),nx.shortest_path(G,'a','d',weight='len')
+
 ‘’‘
 1.https://blog.csdn.net/qq_40206371/article/details/118061345
 2.https://blog.csdn.net/littlely_ll/article/details/81749960
