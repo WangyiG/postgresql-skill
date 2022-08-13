@@ -36,3 +36,8 @@ conda config --add channels https://pypi.douban.com/anaconda/cloud/conda-forge/
   
 // 删除所有源  
 conda config --remove-key channels
+
+// conda 回退
+conda list --revision
+conda install --rev 23
+
