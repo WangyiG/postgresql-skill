@@ -8,6 +8,10 @@ vim ~/.zshrc
 source ~/.zshrc
 ```
 #### miniforge卸载重装
+- 官网
+```sh
+https://github.com/conda-forge/miniforge
+```
 - 卸载
 ```sh
 conda init --reverse --dry-run
