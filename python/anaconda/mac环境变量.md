@@ -38,7 +38,21 @@ conda init "$(basename "${SHELL}")"
 ```sh
 conda install jupyter
 ```
-
+#### 常用虚拟环境配置
+- dash
+```sh
+conda create -n dash_dev python=3.8 -c https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/ -y
+conda activate dash_dev
+pip install dash feffery-antd-components arrow pandas  -i https://pypi.douban.com/simple/
+```
+- geopandas
+```sh
+conda create -n geopandas-env python=3.8 -c https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main -y
+conda activate geopandas-env
+conda install pandas jupyter geopandas=0.11.0 pyogrio pygeos -c https://mirrors.sjtug.sjtu.edu.cn/anaconda/cloud/conda-forge -y
+conda install matplotlib
+conda install -c conda-forge ipympl
+```
 
 
 
