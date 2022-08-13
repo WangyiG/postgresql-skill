@@ -34,3 +34,15 @@ conda init "$(basename "${SHELL}")"
 // 安装目录为
 /opt/homebrew/bin/conda
 ```
+#### vscode中使用jupyter
+```sh
+conda install jupyter
+```
+
+
+
+
+
+
+
+
