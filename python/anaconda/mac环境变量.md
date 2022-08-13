@@ -27,4 +27,6 @@ rm -f "${HOME}/.condarc"
 ```sh
 brew install miniforge
 conda init "$(basename "${SHELL}")"
+// 安装目录为
+/opt/homebrew/bin/conda
 ```
