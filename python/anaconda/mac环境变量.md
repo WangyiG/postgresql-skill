@@ -29,7 +29,7 @@ rm -f "${HOME}/.condarc"
 ```
 - 重装
 ```sh
-brew install miniforge
+brew install --cask miniforge
 conda init "$(basename "${SHELL}")"
 // 安装目录为
 /opt/homebrew/bin/conda
