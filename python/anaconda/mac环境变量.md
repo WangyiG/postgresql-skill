@@ -46,7 +46,9 @@ conda activate dash_dev
 pip install dash feffery-antd-components arrow pandas  -i https://pypi.douban.com/simple/
 pip install peewee -i https://pypi.douban.com/simple/
 // postgresql需要安装
-conda install psycopg2 
+conda install psycopg2
+// mysql则必须安装
+pip install pymysql
 ```
 - geopandas
 ```sh
