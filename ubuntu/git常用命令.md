@@ -356,7 +356,7 @@ git remote add gitee https://gitee.com/mangti/docs.git
 // 推送至远程仓库的master分支
 git push gitee master
 
-```sh
+```
 
 
 
