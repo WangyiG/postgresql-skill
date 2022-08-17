@@ -333,8 +333,30 @@ git diff gitee/master
 git pull gitee master
 git log
 ```
+## vitepress部署到gitee
+```sh
+// 打包
+npm run docs:build
 
+// 切换至要推送的工作区当前文件夹下
+cd docs/.vitepress/dist
 
+// git初始化
+git init 
+
+// 将需要的文件add进暂存区
+git add -A
+
+// 提交暂存区的文件至本地版本库
+git commit -m "vitepress first commit"
+
+// 给远程仓库地址设置别名
+git remote add gitee https://gitee.com/mangti/docs.git
+
+// 推送至远程仓库的master分支
+git push gitee master
+
+```sh
 
 
 
