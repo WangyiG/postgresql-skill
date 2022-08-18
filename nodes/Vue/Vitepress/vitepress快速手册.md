@@ -14,7 +14,7 @@ npm install -g yarn
 ```
 执行初始化
 ```sh
-yarn init
+yarn init -y
 ```
 3.安装vitepress
 将依赖vue一并安装
