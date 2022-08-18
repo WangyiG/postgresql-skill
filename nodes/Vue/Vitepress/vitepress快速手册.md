@@ -108,7 +108,7 @@ export default {
 ```
 
 ## 重新配置文档入口index.md
-使用home布局
+使用home布局,注意以下的斜杠注释不能在md中出现,这里只是作为说明使用
 ```md
 ---
 layout : home
