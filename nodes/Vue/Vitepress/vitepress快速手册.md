@@ -106,6 +106,13 @@ export default {
     }
 }
 ```
+5.注意base的设置(非常重要)
+```js
+// dev时不写或指定为docs即可,build部署到gitee时,一定要将base设置为gitee上的仓库名
+base : '/gitee上的仓库名/'
+title : 'MangTi',
+head : [["link",{rel:'icon',href:'/mt.jpg'}]],
+```
 
 ## 重新配置文档入口index.md
 使用home布局,注意以下的斜杠注释不能在md中出现,这里只是作为说明使用
