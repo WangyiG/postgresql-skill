@@ -43,9 +43,10 @@ conda install jupyter
 ```sh
 conda create -n dash_dev python=3.8 -c https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/ -y
 conda activate dash_dev
-pip install dash feffery-antd-components arrow pandas  -i https://pypi.douban.com/simple/
-pip install peewee -i https://pypi.douban.com/simple/
-pip install dash_bootstrap_components  -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install dash feffery-antd-components peewee arrow pandas  -i https://pypi.douban.com/simple/
+pip install dash_bootstrap_components feffery-antd-components -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install "celery[redis,eventlet]" -i https://pypi.tuna.tsinghua.edu.cn/simple
+
 // postgresql需要安装
 conda install psycopg2
 // mysql则必须安装
