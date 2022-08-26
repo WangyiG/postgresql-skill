@@ -87,4 +87,55 @@ class Circle:
 c = Circle(1)
 c.area
 
+# 示例
+
+import json
+import dataclasses
+from dataclasses import dataclass,field,asdict
+
+@dataclass
+class Tree:
+    id: int
+    name: str
+    children: dict=field(default_factory=dict)
+    
+    def add(self,id,name):
+        if isinstance(name,str):
+            self.children[id] = Tree(id,name)
+        elif isinstance(name,Tree):
+            self.children[id].children[id] = Tree(id,name)
+
+        return self.children[id]
+
+    @property
+    def ids(self):
+        def f(x):
+            for k,v in x.items():
+                if isinstance(v,dict):
+                    yield from f(v)
+                if k == 'id':
+                    yield v
+        return list(f(asdict(self)))
+    
+    
+    
+china = Tree(1,'中国')
+sichuan = china.add(id=510000, name='四川省')
+_ = sichuan.add(id=510700, name='绵阳市')
+_ = sichuan.children[510700].add(id=510703, name='涪城区')
+_ = sichuan.children[510700].add(id=510704, name='游仙区')
+
+
+print(json.dumps(asdict(china),indent=4,ensure_ascii=False))
+
+china.ids,sichuan.ids
+
+
+
+
+
+
+
+
+
 
