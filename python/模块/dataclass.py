@@ -75,6 +75,18 @@ c2 = C()
 print("c1:{0}; c2:{1}".format(c1, c2))
 
 
+# field中metadata参数为字段设置附加信息,可以使用fields来获取这些附加信息
+@dataclass
+class Position:
+    name :str
+    lon :float = field(default=0.0,metadata={'as_name':'经度','unit':'degrees'})
+    lat :float = field(default=0.0,metadata={'as_name':'维度','unit':'degrees'})
+
+p = Position('上海',10.0,20.2)
+# 获取lon字段,别名为经度,单位unit为度degrees
+fields(p)[1].metadata
+
+
 
 # __post_init__方法根据某一属性动态生成其他属性，有点类似@property描述器属性
 @dataclass
@@ -89,46 +101,7 @@ c.area
 
 # 示例
 
-import json
-import dataclasses
-from dataclasses import dataclass,field,asdict
 
-@dataclass
-class Tree:
-    id: int
-    name: str
-    children: dict=field(default_factory=dict)
-    
-    def add(self,id,name):
-        if isinstance(name,str):
-            self.children[id] = Tree(id,name)
-        elif isinstance(name,Tree):
-            self.children[id].children[id] = Tree(id,name)
-
-        return self.children[id]
-
-    @property
-    def ids(self):
-        def f(x):
-            for k,v in x.items():
-                if isinstance(v,dict):
-                    yield from f(v)
-                if k == 'id':
-                    yield v
-        return list(f(asdict(self)))
-    
-    
-    
-china = Tree(1,'中国')
-sichuan = china.add(id=510000, name='四川省')
-_ = sichuan.add(id=510700, name='绵阳市')
-_ = sichuan.children[510700].add(id=510703, name='涪城区')
-_ = sichuan.children[510700].add(id=510704, name='游仙区')
-
-
-print(json.dumps(asdict(china),indent=4,ensure_ascii=False))
-
-china.ids,sichuan.ids
 
 
 
