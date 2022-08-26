@@ -101,7 +101,67 @@ c.area
 
 # 示例
 
+import json
+from dataclasses import dataclass,field,asdict,fields
 
+
+@dataclass
+class Tree:
+    id: int
+    name: str
+    nodes: list=field(default_factory=list,repr=False) 
+
+    def add(self,id,name):
+        self.nodes.append(Tree(id,name))
+        # 链式调用add方法china.add(1,'a').add(2,'b').add(3,'c')时,self分别是china,a,b
+        return self.nodes[-1]
+
+    @property
+    def ids(self):
+        # 获取所有id
+        ids = [self.id]
+        for node in self.nodes:
+            ids += node.ids
+        return ids
+
+    def get_subtree(self,id):
+        # 根据id获取对应子树
+        if id in self.ids:
+            if self.id == id:
+                subtree = asdict(self)
+                return subtree
+            for node in self.nodes:
+                if node.get_subtree(id):
+                    return node.get_subtree(id)
+        return None
+
+    def get_paths(self,id):
+        # 根据id获取id所在主干
+        if id in self.ids:
+            paths = [self.id]
+            for node in self.nodes:
+                paths += node.get_paths(id)
+            return paths
+        return []
+
+    def get_links(self):
+        # 获取节点关联数组
+        links = []
+        for node in self.nodes:
+            links.append([node.id,node.name,self.id])
+            links += node.get_links()
+        return links
+
+ 
+
+china = Tree(1,'中国')
+china.add(200,'上海').add(201,'黄埔区').add(2011,'人民公园').add(20112,'相亲角')
+
+china.ids,china.get_paths(2011),china.get_links()
+
+china.get_subtree(201)
+
+print(json.dumps(asdict(china),indent=4,ensure_ascii=False))
 
 
 
