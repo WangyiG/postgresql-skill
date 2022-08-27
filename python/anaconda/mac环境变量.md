@@ -44,7 +44,8 @@ conda install jupyter
 conda create -n dash_dev python=3.8 -c https://mirrors.sjtug.sjtu.edu.cn/anaconda/pkgs/main/ -y
 conda activate dash_dev
 pip install dash feffery-antd-components peewee arrow pandas  -i https://pypi.douban.com/simple/
-pip install dash_bootstrap_components feffery-markdown-components -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install dash_bootstrap_components feffery-markdown-components feffery_antd_charts feffery_leaflet_components -i https://pypi.tuna.tsinghua.edu.cn/simple
+
 pip install "celery[redis,eventlet]" -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 // postgresql需要安装
