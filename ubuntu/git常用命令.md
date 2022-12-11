@@ -173,7 +173,7 @@ git config --global user.email your_email@xx.com
 git init
 
 // 创建一个test.txt文件,并写入内容:'版本1'
-// echo与touch区别:touch只创建文件,echo可以在创建文件的同时写入内容
+// echo与touch区别:touch只创建文件,echo可以在创建文件的同时写入内容,>表示覆盖写,如需追加写则使用>>
 echo "版本1" > test.txt
 
 // 查看git状态,会返回当前所在分支,是否需要commit,被跟踪的文件,未被跟踪的文件
